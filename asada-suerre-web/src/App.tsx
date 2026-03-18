@@ -1,11 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Blog from './blog/Blog'
+import Home from './components/Home/Home'
 
 function App() {
   return (
-    <Blog />
+    <Home />
   );
 }
 

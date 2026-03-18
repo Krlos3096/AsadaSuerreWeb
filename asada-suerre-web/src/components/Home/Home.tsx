@@ -1,12 +1,14 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import AppTheme from '../shared-theme/AppTheme';
-import AppAppBar from './components/AppAppBar';
-import MainContent from './components/MainContent';
-import Latest from './components/Latest';
-import Footer from './components/Footer';
+import AppTheme from '../../shared-theme/AppTheme';
+import AppAppBar from '../AppAppBar/AppAppBar';
+import MainContent from '../MainContent/MainContent';
+import Latest from '../Latest/Latest';
+import Footer from '../Footer/Footer';
+import './Home.scss';
+import WhatsAppFloat from '../WhatsAppFloat/WhatsAppFloat';
 
-export default function Blog(props: { disableCustomTheme?: boolean }) {
+export default function Home(props: { disableCustomTheme?: boolean }) {
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
@@ -21,6 +23,7 @@ export default function Blog(props: { disableCustomTheme?: boolean }) {
         <Latest />
       </Container>
       <Footer />
+      <WhatsAppFloat />
     </AppTheme>
   );
 }

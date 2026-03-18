@@ -11,8 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
-import { ReactComponent as Logo } from '../../assets/asada-suerre-logo.svg';
+import { ReactComponent as LogoAsada } from '../../assets/asada-suerre-logo.svg';
+import './AppAppBar.scss';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -49,13 +49,13 @@ export default function AppAppBar() {
       }}
     >
       <Container maxWidth="lg">
-        <StyledToolbar variant="dense" disableGutters>
+        <StyledToolbar variant="dense" disableGutters sx={{ bgcolor: "#04A6DB", border: "1px solid black" }}>
           <Box
             sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}
           >
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <Box
-                component={Logo}
+                component={LogoAsada}
                 sx={{
                   position: "absolute",
                   left: "50%",
@@ -65,32 +65,19 @@ export default function AppAppBar() {
                 }}
               />
               <Button variant="text" color="info" size="small">
-                Features
+                Noticias
               </Button>
               <Button variant="text" color="info" size="small">
-                Testimonials
+                Consulta en linea
               </Button>
               <Button variant="text" color="info" size="small">
-                Highlights
+                Gestiones
               </Button>
               <Button variant="text" color="info" size="small">
-                Pricing
+                Gobernanza 
               </Button>
-              <Button
-                variant="text"
-                color="info"
-                size="small"
-                sx={{ minWidth: 0 }}
-              >
-                FAQ
-              </Button>
-              <Button
-                variant="text"
-                color="info"
-                size="small"
-                sx={{ minWidth: 0 }}
-              >
-                Blog
+              <Button variant="text" color="info" size="small">
+                Nuestra historia
               </Button>
             </Box>
           </Box>
@@ -102,25 +89,23 @@ export default function AppAppBar() {
             }}
           >
             <Button color="primary" variant="text" size="small">
-              Sign in
+              Contactos
             </Button>
             <Button color="primary" variant="contained" size="small">
-              Sign up
+              Portal Administrativo
             </Button>
-            <ColorModeIconDropdown />
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" }, gap: 1 }}>
             <Box
-                component={Logo}
+                component={LogoAsada}
                 sx={{
                   position: "absolute",
                   left: "50%",
-                  transform: "translateX(-50%)",
+                  transform: "translateX(-50%) translateY(-25%)",
                   width: "20%",
                   objectFit: "contain",
                 }}
               />
-            <ColorModeIconDropdown size="medium" />
             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
@@ -145,21 +130,20 @@ export default function AppAppBar() {
                     <CloseRoundedIcon />
                   </IconButton>
                 </Box>
-                <MenuItem>Features</MenuItem>
-                <MenuItem>Testimonials</MenuItem>
-                <MenuItem>Highlights</MenuItem>
-                <MenuItem>Pricing</MenuItem>
-                <MenuItem>FAQ</MenuItem>
-                <MenuItem>Blog</MenuItem>
+                <MenuItem>Noticias</MenuItem>
+                <MenuItem>Consulta en linea</MenuItem>
+                <MenuItem>Gestiones</MenuItem>
+                <MenuItem>Gobernanza </MenuItem>
+                <MenuItem>Nuestra historia</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>
-                    Sign up
+                    Portal Administrativo
                   </Button>
                 </MenuItem>
                 <MenuItem>
                   <Button color="primary" variant="outlined" fullWidth>
-                    Sign in
+                    Contactos
                   </Button>
                 </MenuItem>
               </Box>
