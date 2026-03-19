@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import InputLabel from '@mui/material/InputLabel';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -13,17 +12,6 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/X';
 import './Footer.scss';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
-      {'Copyright '}
-      {'Copyright © '}
-      &nbsp;
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
 
 export default function Footer() {
   return (
@@ -61,12 +49,17 @@ export default function Footer() {
                 gutterBottom
                 sx={{ fontWeight: 600, mt: 2 }}
               >
-                Join the newsletter
+                Correo
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-                Subscribe for weekly updates. No spams ever!
+                Puedes enviarnos un correo a{' '}
+                <Link href="mailto:asadasuerre@gmail.com">
+                  asadasuerre@gmail.com
+                </Link>
+                <br />
+                o bien usar el siguiente espacio para agregar su nombre y número de
+                teléfono o correo y le contactaremos a la brevedad.
               </Typography>
-              <InputLabel htmlFor="email-newsletter">Email</InputLabel>
               <Stack direction="row" spacing={1} useFlexGap>
                 <TextField
                   id="email-newsletter"
@@ -74,14 +67,7 @@ export default function Footer() {
                   size="small"
                   variant="outlined"
                   fullWidth
-                  aria-label="Enter your email address"
-                  placeholder="Your email address"
-                  slotProps={{
-                    htmlInput: {
-                      autoComplete: 'off',
-                      'aria-label': 'Enter your email address',
-                    },
-                  }}
+                  aria-label="Escribe tu consulta aqui"
                   sx={{ width: '250px' }}
                 />
                 <Button
@@ -90,7 +76,7 @@ export default function Footer() {
                   size="small"
                   sx={{ flexShrink: 0 }}
                 >
-                  Subscribe
+                  Enviar
                 </Button>
               </Stack>
             </Box>
@@ -102,89 +88,7 @@ export default function Footer() {
               gap: 1,
             }}
           >
-            <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-              Product
-            </Typography>
-            <Link color="text.secondary" variant="body2" href="#">
-              Features
-            </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              Testimonials
-            </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              Highlights
-            </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              Pricing
-            </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              FAQs
-            </Link>
-          </Box>
-          <Box
-            sx={{
-              display: { xs: 'none', sm: 'flex' },
-              flexDirection: 'column',
-              gap: 1,
-            }}
-          >
-            <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-              Company
-            </Typography>
-            <Link color="text.secondary" variant="body2" href="#">
-              About us
-            </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              Careers
-            </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              Press
-            </Link>
-          </Box>
-          <Box
-            sx={{
-              display: { xs: 'none', sm: 'flex' },
-              flexDirection: 'column',
-              gap: 1,
-            }}
-          >
-            <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-              Legal
-            </Typography>
-            <Link color="text.secondary" variant="body2" href="#">
-              Terms
-            </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              Privacy
-            </Link>
-            <Link color="text.secondary" variant="body2" href="#">
-              Contact
-            </Link>
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            pt: { xs: 4, sm: 8 },
-            width: '100%',
-            borderTop: '1px solid',
-            borderColor: 'divider',
-          }}
-        >
-          <div>
-            <Link color="text.secondary" variant="body2" href="#">
-              Privacy Policy
-            </Link>
-            <Typography sx={{ display: 'inline', mx: 0.5, opacity: 0.5 }}>
-              &nbsp;•&nbsp;
-            </Typography>
-            <Link color="text.secondary" variant="body2" href="#">
-              Terms of Service
-            </Link>
-            <Copyright />
-          </div>
-          <Stack
+            <Stack
             direction="row"
             spacing={1}
             useFlexGap
@@ -218,6 +122,7 @@ export default function Footer() {
               <LinkedInIcon />
             </IconButton>
           </Stack>
+          </Box>
         </Box>
       </Container>
     </React.Fragment>

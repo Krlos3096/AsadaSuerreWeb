@@ -12,7 +12,7 @@ import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { ReactComponent as LogoAsada } from '../../assets/asada-suerre-logo.svg';
-import './AppAppBar.scss';
+import './AppBar.scss';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -30,7 +30,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   padding: '8px 12px',
 }));
 
-export default function AppAppBar() {
+export default function AppBarComponent() {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -46,6 +46,7 @@ export default function AppAppBar() {
         bgcolor: "transparent",
         backgroundImage: "none",
         mt: "calc(var(--template-frame-height, 0px) + 28px)",
+        zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
       <Container maxWidth="lg">
@@ -64,20 +65,17 @@ export default function AppAppBar() {
                   objectFit: "contain",
                 }}
               />
-              <Button variant="text" color="info" size="small">
+              <Button variant="text" color="primary" size="small">
                 Noticias
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button variant="text" color="primary" size="small">
                 Consulta en linea
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button variant="text" color="primary" size="small">
                 Gestiones
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button variant="text" color="primary" size="small">
                 Gobernanza 
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Nuestra historia
               </Button>
             </Box>
           </Box>
@@ -88,6 +86,9 @@ export default function AppAppBar() {
               alignItems: "center",
             }}
           >
+            <Button variant="text" color="primary" size="small">
+                Nuestra historia
+              </Button>
             <Button color="primary" variant="text" size="small">
               Contactos
             </Button>
@@ -106,30 +107,23 @@ export default function AppAppBar() {
                   objectFit: "contain",
                 }}
               />
-            <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
-              <MenuIcon />
+            <IconButton aria-label="Menu button" onClick={toggleDrawer(!open)} sx={{ border: "1px solid black" }}>
+              {open ? <CloseRoundedIcon /> : <MenuIcon />}
             </IconButton>
             <Drawer
               anchor="top"
               open={open}
               onClose={toggleDrawer(false)}
-              PaperProps={{
-                sx: {
-                  top: "var(--template-frame-height, 0px)",
-                },
+              hideBackdrop={true}
+              slotProps={{
+                paper: {
+                  sx: {
+                    top: "var(--template-frame-height, 80px)",
+                  }
+                }
               }}
             >
               <Box sx={{ p: 2, backgroundColor: "background.default" }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                  }}
-                >
-                  <IconButton onClick={toggleDrawer(false)}>
-                    <CloseRoundedIcon />
-                  </IconButton>
-                </Box>
                 <MenuItem>Noticias</MenuItem>
                 <MenuItem>Consulta en linea</MenuItem>
                 <MenuItem>Gestiones</MenuItem>
