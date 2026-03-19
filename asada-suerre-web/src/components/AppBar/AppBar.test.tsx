@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import AppAppBar from './AppAppBar';
+import AppBarComponent from './AppBar';
 
-describe('AppAppBar', () => {
+describe('AppBar', () => {
   test('renders app bar component', () => {
-    render(<AppAppBar />);
+    render(<AppBarComponent />);
     // Add your test assertions here
     expect(screen.getByRole('banner')).toBeInTheDocument();
   });
