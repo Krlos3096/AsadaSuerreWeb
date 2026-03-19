@@ -89,9 +89,6 @@ export default function AppBarComponent() {
             <Button variant="text" color="primary" size="small">
                 Nuestra historia
               </Button>
-            <Button color="primary" variant="text" size="small">
-              Contactos
-            </Button>
             <Button color="primary" variant="contained" size="small">
               Portal Administrativo
             </Button>
@@ -119,6 +116,10 @@ export default function AppBarComponent() {
                 paper: {
                   sx: {
                     top: "var(--template-frame-height, 80px)",
+                    marginLeft: "5%",
+                    marginRight: "8%",
+                    border: "1px solid black",
+                    borderRadius: "8px"
                   }
                 }
               }}
@@ -133,11 +134,6 @@ export default function AppBarComponent() {
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>
                     Portal Administrativo
-                  </Button>
-                </MenuItem>
-                <MenuItem>
-                  <Button color="primary" variant="outlined" fullWidth>
-                    Contactos
                   </Button>
                 </MenuItem>
               </Box>

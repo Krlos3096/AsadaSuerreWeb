@@ -1,0 +1,81 @@
+// Contacts Container Component Styles
+.contacts-container {
+  position: fixed;
+  z-index: 1000;
+
+  // Desktop version - vertical on right side
+  @media (min-width: 769px) {
+    bottom: 20px;
+    right: 20px;
+
+    .contacts-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+
+      // Position each button individually
+      > :nth-child(1) { // WhatsApp
+        position: relative;
+        bottom: 0;
+        right: 0;
+      }
+
+      > :nth-child(2) { // Email
+        position: relative;
+        bottom: 0;
+        right: 0;
+      }
+
+      > :nth-child(3) { // Facebook
+        position: relative;
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+
+  // Mobile version - horizontal on bottom
+  @media (max-width: 768px) {
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .contacts-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+
+      // Position each button individually for mobile
+      > :nth-child(1) { // WhatsApp
+        position: relative;
+        bottom: 0;
+        left: 0;
+      }
+
+      > :nth-child(2) { // Email
+        position: relative;
+        bottom: 0;
+        left: 0;
+      }
+
+      > :nth-child(3) { // Facebook
+        position: relative;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  }
+}
+
+// Override individual button positioning when inside container
+.contacts-container {
+  .contact-float {
+    position: relative !important;
+    bottom: auto !important;
+    right: auto !important;
+    left: auto !important;
+  }
+}

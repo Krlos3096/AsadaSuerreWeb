@@ -199,9 +199,6 @@ export default function MainContent() {
         }}
       >
         <Search />
-        <IconButton size="small" aria-label="RSS feed">
-          <RssFeedRoundedIcon />
-        </IconButton>
       </Box>
       <Box
         sx={{
@@ -270,9 +267,6 @@ export default function MainContent() {
           }}
         >
           <Search />
-          <IconButton size="small" aria-label="RSS feed">
-            <RssFeedRoundedIcon />
-          </IconButton>
         </Box>
       </Box>
       <Grid container spacing={2} columns={12}>
