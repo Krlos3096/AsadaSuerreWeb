@@ -14,14 +14,14 @@
     "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
   },
   {
-    "img": "https://placeholdpicsum.dev/photo/category/industrial/800/450?seed=3",
+    "img": "https://placeholdpicsum.dev/photo/category/architecture/800/450?seed=3",
     "tag": "Mantenimiento",
     "title": "Limpieza anual de tanques de almacenamiento",
     "description": "Se estarán realizando labores de limpieza y desinfección en los tanques para garantizar la calidad del agua.",
     "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
   },
   {
-    "img": "https://placeholdpicsum.dev/photo/category/industrial/800/450?seed=4",
+    "img": "https://placeholdpicsum.dev/photo/category/architecture/800/450?seed=4",
     "tag": "Mantenimiento",
     "title": "Reparación de tubería en comunidad central",
     "description": "Nuestro equipo técnico trabaja en la sustitución de tuberías dañadas para mejorar la presión del servicio.",

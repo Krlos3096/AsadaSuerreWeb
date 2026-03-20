@@ -14,7 +14,8 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import newsData from '../../assets/news-data.json';
-import './MainContent.scss';
+import './Noticias.scss';
+import { Container } from '@mui/material';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   display: 'flex',
@@ -86,12 +87,14 @@ function Author({ authors }: { authors: { name: string; avatar: string }[] }) {
   );
 }
 
-export function Search() {
+export function Search({ value, onChange }: { value: string; onChange: (event: React.ChangeEvent<HTMLInputElement>) => void }) {
   return (
     <FormControl sx={{ width: { xs: '100%', md: '25ch' } }} variant="outlined">
       <OutlinedInput
         size="small"
         id="search"
+        value={value}
+        onChange={onChange}
         sx={{ flexGrow: 1 }}
         startAdornment={
           <InputAdornment position="start" sx={{ color: 'text.primary' }}>
@@ -106,9 +109,10 @@ export function Search() {
   );
 }
 
-export default function MainContent() {
+export default function Noticias() {
   const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = React.useState<string>('Todo');
+  const [searchQuery, setSearchQuery] = React.useState<string>('');
 
   // Extract unique categories from news data
   const categories = React.useMemo(() => {
@@ -116,13 +120,26 @@ export default function MainContent() {
     return ['Todo', ...uniqueTags];
   }, []);
 
-  // Filter news based on selected category
+  // Filter news based on selected category and search query
   const filteredNews = React.useMemo(() => {
-    if (selectedCategory === 'Todo') {
-      return newsData;
+    let filtered = newsData;
+    
+    // Filter by category
+    if (selectedCategory !== 'Todo') {
+      filtered = filtered.filter(item => item.tag === selectedCategory);
     }
-    return newsData.filter(item => item.tag === selectedCategory);
-  }, [selectedCategory]);
+    
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(item => 
+        item.title.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query)
+      );
+    }
+    
+    return filtered;
+  }, [selectedCategory, searchQuery]);
 
   const handleFocus = (index: number) => {
     setFocusedCardIndex(index);
@@ -136,41 +153,49 @@ export default function MainContent() {
     setSelectedCategory(category);
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      <div>
-        <Typography variant="h1" gutterBottom>
-          Noticias
-        </Typography>
-      </div>
+    <Container
+      maxWidth="lg"
+      component="main"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        my: { xs: 16, md: 32 },
+        gap: 4,
+      }}
+    >
       <Box
         sx={{
-          display: { xs: 'flex', sm: 'none' },
-          flexDirection: 'row',
+          display: { xs: "flex", sm: "none" },
+          flexDirection: "row",
           gap: 1,
-          width: { xs: '100%', md: 'fit-content' },
-          overflow: 'auto',
+          width: { xs: "100%", md: "fit-content" },
+          overflow: "auto",
         }}
       >
-        <Search />
+        <Search value={searchQuery} onChange={handleSearchChange} />
       </Box>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column-reverse', md: 'row' },
-          width: '100%',
-          justifyContent: 'space-between',
-          alignItems: { xs: 'start', md: 'center' },
+          display: "flex",
+          flexDirection: { xs: "column-reverse", md: "row" },
+          width: "100%",
+          justifyContent: "space-between",
+          alignItems: { xs: "start", md: "center" },
           gap: 4,
-          overflow: 'auto',
+          overflow: "auto",
         }}
       >
         <Box
           sx={{
-            display: 'inline-flex',
-            flexDirection: 'row',
+            display: "inline-flex",
+            flexDirection: "row",
             gap: 3,
-            overflow: 'auto',
+            overflow: "auto",
           }}
         >
           {categories.map((category) => (
@@ -180,12 +205,21 @@ export default function MainContent() {
               size="medium"
               label={category}
               sx={{
-                backgroundColor: selectedCategory === category ? 'primary.light' : 'transparent',
-                color: selectedCategory === category ? 'primary.contrastText' : 'text.primary',
-                border: selectedCategory === category ? 'none' : '1px solid',
-                borderColor: 'divider',
-                '&:hover': {
-                  backgroundColor: selectedCategory === category ? 'primary.light' : 'action.hover',
+                backgroundColor:
+                  selectedCategory === category
+                    ? "primary.light"
+                    : "transparent",
+                color:
+                  selectedCategory === category
+                    ? "primary.contrastText"
+                    : "text.primary",
+                border: selectedCategory === category ? "none" : "1px solid",
+                borderColor: "divider",
+                "&:hover": {
+                  backgroundColor:
+                    selectedCategory === category
+                      ? "primary.light"
+                      : "action.hover",
                 },
               }}
             />
@@ -193,14 +227,14 @@ export default function MainContent() {
         </Box>
         <Box
           sx={{
-            display: { xs: 'none', sm: 'flex' },
-            flexDirection: 'row',
+            display: { xs: "none", sm: "flex" },
+            flexDirection: "row",
             gap: 1,
-            width: { xs: '100%', md: 'fit-content' },
-            overflow: 'auto',
+            width: { xs: "100%", md: "fit-content" },
+            overflow: "auto",
           }}
         >
-          <Search />
+          <Search value={searchQuery} onChange={handleSearchChange} />
         </Box>
       </Box>
       <Grid container spacing={2} columns={12}>
@@ -211,16 +245,16 @@ export default function MainContent() {
               onFocus={() => handleFocus(index)}
               onBlur={handleBlur}
               tabIndex={0}
-              className={focusedCardIndex === index ? 'Mui-focused' : ''}
+              className={focusedCardIndex === index ? "Mui-focused" : ""}
             >
               <CardMedia
                 component="img"
                 alt={news.title}
                 image={news.img}
                 sx={{
-                  aspectRatio: '16 / 9',
-                  borderBottom: '1px solid',
-                  borderColor: 'divider',
+                  aspectRatio: "16 / 9",
+                  borderBottom: "1px solid",
+                  borderColor: "divider",
                 }}
               />
               <StyledCardContent>
@@ -230,7 +264,11 @@ export default function MainContent() {
                 <Typography gutterBottom variant="h6" component="div">
                   {news.title}
                 </Typography>
-                <StyledTypography variant="body2" color="text.secondary" gutterBottom>
+                <StyledTypography
+                  variant="body2"
+                  color="text.secondary"
+                  gutterBottom
+                >
                   {news.description}
                 </StyledTypography>
               </StyledCardContent>
@@ -239,6 +277,6 @@ export default function MainContent() {
           </Grid>
         ))}
       </Grid>
-    </Box>
+    </Container>
   );
 }
