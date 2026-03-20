@@ -82,7 +82,7 @@ export default function Gobernanza() {
     >
       <Grid container spacing={4}>
         {gobernanzaData.map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid key={index} size={{ xs: 12, md: 6 }}>
             <Card
               className="gobernanza-card"
               sx={{

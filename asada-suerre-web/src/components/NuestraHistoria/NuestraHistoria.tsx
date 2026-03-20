@@ -58,8 +58,7 @@ const statsData = [
   { number: '2,500+', label: 'Usuarios Conectados' },
   { number: '29', label: 'Años de Servicio' },
   { number: '15', label: 'Kilómetros de Red' },
-  { number: '99.5%', label: 'Calidad del Agua' },
-  { number: '100%', label: 'Satisfacción del Cliente' }
+  { number: '99.5%', label: 'Calidad del Agua' }
 ];
 
 export default function NuestraHistoria() {
@@ -77,7 +76,7 @@ export default function NuestraHistoria() {
       {/* Statistics Section */}
       <Grid container spacing={3} sx={{ mb: 6 }}>
         {statsData.map((stat, index) => (
-          <Grid item xs={6} sm={3} key={index}>
+          <Grid key={index} size={{ xs: 6, md: 3 }}>
             <Card className="stat-card" sx={{ textAlign: "center", py: 3 }}>
               <CardContent>
                 <Typography

@@ -10,8 +10,10 @@ import {
   Gestiones, 
   Gobernanza, 
   NuestraHistoria, 
+  Contactos,
   Footer, 
-  ContactsContainer 
+  ContactsContainer,
+  ScrollToTop 
 } from './components';
 import './App.css';
 
@@ -20,6 +22,7 @@ function AppContent() {
     <AppTheme>
       <CssBaseline enableColorScheme />
       <Router>
+        <ScrollToTop />
         <AppBar />
         <Box sx={{ minHeight: 'calc(100vh - 160px)' }}>
           <Routes>
@@ -27,6 +30,7 @@ function AppContent() {
             <Route path="/noticias" element={<Noticias />} />
             <Route path="/gestiones" element={<Gestiones />} />
             <Route path="/gobernanza" element={<Gobernanza />} />
+            <Route path="/contactos" element={<Contactos />} />
             <Route path="/nuestra-historia" element={<NuestraHistoria />} />
           </Routes>
         </Box>

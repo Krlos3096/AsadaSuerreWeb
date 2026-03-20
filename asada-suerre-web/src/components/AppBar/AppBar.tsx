@@ -77,17 +77,24 @@ export default function AppBarComponent() {
       {/* Hero Section with Background Image */}
       <Box
         sx={{
-          position: 'relative',
-          width: '100%',
-          height: { xs: '100px', md: '200px' },
-          backgroundImage: { xs: `url(${headerImageXs})`, md: `url(${headerImageMd})` },
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
+          position: "relative",
+          width: "100%",
+          height: { xs: "100px", md: "200px" },
+          backgroundImage: {
+            xs: `url(${headerImageXs})`,
+            md: `url(${headerImageMd})`,
+          },
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       />
       <Container maxWidth="lg">
-        <StyledToolbar variant="dense" disableGutters sx={{ bgcolor: "#04A6DB", border: "1px solid black", top: '-50px' }}>
+        <StyledToolbar
+          variant="dense"
+          disableGutters
+          sx={{ bgcolor: "#04A6DB", border: "1px solid black", top: "-50px" }}
+        >
           <Box
             sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}
           >
@@ -102,53 +109,69 @@ export default function AppBarComponent() {
                   objectFit: "contain",
                 }}
               />
-              <Button 
-                variant="text" 
-                color="primary" 
+              <Button
+                variant="text"
+                color="primary"
                 size="small"
-                onClick={() => handleNavigation('/noticias')}
-                sx={{ 
-                  backgroundColor: isActive('/noticias') ? 'primary.dark' : 'transparent',
-                  color: isActive('/noticias') ? 'primary.contrastText' : 'inherit'
+                onClick={() => handleNavigation("/noticias")}
+                sx={{
+                  backgroundColor: isActive("/noticias")
+                    ? "primary.dark"
+                    : "transparent",
+                  color: isActive("/noticias")
+                    ? "primary.contrastText"
+                    : "inherit",
                 }}
               >
                 Noticias
               </Button>
-              <Button 
-                variant="text" 
-                color="primary" 
+              <Button
+                variant="text"
+                color="primary"
                 size="small"
-                onClick={() => handleNavigation('/consulta-en-linea')}
-                sx={{ 
-                  backgroundColor: 'transparent',
-                  color: 'inherit'
-                }}
-              >
-                Consulta tu recibo
-              </Button>
-              <Button 
-                variant="text" 
-                color="primary" 
-                size="small"
-                onClick={() => handleNavigation('/gestiones')}
-                sx={{ 
-                  backgroundColor: isActive('/gestiones') ? 'primary.dark' : 'transparent',
-                  color: isActive('/gestiones') ? 'primary.contrastText' : 'inherit'
+                onClick={() => handleNavigation("/gestiones")}
+                sx={{
+                  backgroundColor: isActive("/gestiones")
+                    ? "primary.dark"
+                    : "transparent",
+                  color: isActive("/gestiones")
+                    ? "primary.contrastText"
+                    : "inherit",
                 }}
               >
                 Gestiones
               </Button>
-              <Button 
-                variant="text" 
-                color="primary" 
+              <Button
+                variant="text"
+                color="primary"
                 size="small"
-                onClick={() => handleNavigation('/gobernanza')}
-                sx={{ 
-                  backgroundColor: isActive('/gobernanza') ? 'primary.dark' : 'transparent',
-                  color: isActive('/gobernanza') ? 'primary.contrastText' : 'inherit'
+                onClick={() => handleNavigation("/gobernanza")}
+                sx={{
+                  backgroundColor: isActive("/gobernanza")
+                    ? "primary.dark"
+                    : "transparent",
+                  color: isActive("/gobernanza")
+                    ? "primary.contrastText"
+                    : "inherit",
                 }}
               >
-                Gobernanza 
+                Gobernanza
+              </Button>
+              <Button
+                variant="text"
+                color="primary"
+                size="small"
+                onClick={() => handleNavigation("/nuestra-historia")}
+                sx={{
+                  backgroundColor: isActive("/nuestra-historia")
+                    ? "primary.dark"
+                    : "transparent",
+                  color: isActive("/nuestra-historia")
+                    ? "primary.contrastText"
+                    : "inherit",
+                }}
+              >
+                Nuestra historia
               </Button>
             </Box>
           </Box>
@@ -159,34 +182,42 @@ export default function AppBarComponent() {
               alignItems: "center",
             }}
           >
-            <Button 
-              variant="text" 
-              color="primary" 
+            <Button
+              variant="text"
+              color="primary"
               size="small"
-              onClick={() => handleNavigation('/nuestra-historia')}
-              sx={{ 
-                backgroundColor: isActive('/nuestra-historia') ? 'primary.dark' : 'transparent',
-                color: isActive('/nuestra-historia') ? 'primary.contrastText' : 'inherit'
+              onClick={() => handleNavigation("/contactos")}
+              sx={{
+                backgroundColor: isActive("/contactos")
+                  ? "primary.dark"
+                  : "transparent",
+                color: isActive("/contactos")
+                  ? "primary.contrastText"
+                  : "inherit",
               }}
             >
-                Nuestra historia
-              </Button>
+              Contactos
+            </Button>
             <Button color="primary" variant="contained" size="small">
               Portal Administrativo
             </Button>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" }, gap: 1 }}>
             <Box
-                component={LogoAsada}
-                sx={{
-                  position: "absolute",
-                  left: "50%",
-                  transform: "translateX(-50%) translateY(-25%)",
-                  width: "20%",
-                  objectFit: "contain",
-                }}
-              />
-            <IconButton aria-label="Menu button" onClick={toggleDrawer(!open)} sx={{ border: "1px solid black" }}>
+              component={LogoAsada}
+              sx={{
+                position: "absolute",
+                left: "50%",
+                transform: "translateX(-50%) translateY(-25%)",
+                width: "20%",
+                objectFit: "contain",
+              }}
+            />
+            <IconButton
+              aria-label="Menu button"
+              onClick={toggleDrawer(!open)}
+              sx={{ border: "1px solid black" }}
+            >
               {open ? <CloseRoundedIcon /> : <MenuIcon />}
             </IconButton>
             <Drawer
@@ -202,22 +233,27 @@ export default function AppBarComponent() {
                     marginRight: "8%",
                     border: "1px solid black",
                     borderRadius: "8px",
-                    paddingTop: "20px"
-                  }
-                }
+                    paddingTop: "20px",
+                  },
+                },
               }}
             >
               <Box sx={{ p: 2, backgroundColor: "background.default" }}>
-                <MenuItem onClick={() => handleNavigation('/noticias')}>Noticias</MenuItem>
-                <MenuItem onClick={() => handleNavigation('/consulta-en-linea')}>
-                Consulta tu recibo
-                <Typography variant="caption" sx={{ ml: 1, color: 'text.secondary' }}>
-                  (abre en nueva pestaña)
-                </Typography>
-              </MenuItem>
-                <MenuItem onClick={() => handleNavigation('/gestiones')}>Gestiones</MenuItem>
-                <MenuItem onClick={() => handleNavigation('/gobernanza')}>Gobernanza </MenuItem>
-                <MenuItem onClick={() => handleNavigation('/nuestra-historia')}>Nuestra historia</MenuItem>
+                <MenuItem onClick={() => handleNavigation("/noticias")}>
+                  Noticias
+                </MenuItem>
+                <MenuItem onClick={() => handleNavigation("/gestiones")}>
+                  Gestiones
+                </MenuItem>
+                <MenuItem onClick={() => handleNavigation("/gobernanza")}>
+                  Gobernanza{" "}
+                </MenuItem>
+                <MenuItem onClick={() => handleNavigation("/nuestra-historia")}>
+                  Nuestra historia
+                </MenuItem>
+                <MenuItem onClick={() => handleNavigation("/contactos")}>
+                  Contactos
+                </MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="secondary" variant="contained" fullWidth>

@@ -19,15 +19,14 @@ import './Gestiones.scss';
 
 const gestionesData = [
   {
-    title: 'Solicitud de Nuevo Servicio',
-    description: 'Solicita una nueva conexión de agua potable para tu domicilio o negocio.',
-    icon: <WaterDropIcon />,
+    title: 'Consulta de Recibos',
+    description: 'Consulta tus recibos de pago y estado de cuenta.',
+    icon: <AssignmentIcon />,
     requirements: [
-      'Copia de cédula de identidad',
-      'Prueba de propiedad o contrato de arrendamiento',
-      'Croquis de ubicación del predio'
+      'Número de abonado',
+      'Número de teléfono'
     ],
-    buttonText: 'Solicitar Servicio'
+    buttonText: 'Consultar Recibos'
   },
   {
     title: 'Pago de Servicios',
@@ -41,15 +40,15 @@ const gestionesData = [
     buttonText: 'Pagar en Línea'
   },
   {
-    title: 'Reporte de Incidentes',
-    description: 'Reporta fugas, problemas de presión o cualquier incidencia en el servicio.',
-    icon: <AssignmentIcon />,
+    title: 'Solicitud de Nuevo Servicio',
+    description: 'Solicita una nueva conexión de agua potable para tu domicilio o negocio.',
+    icon: <WaterDropIcon />,
     requirements: [
-      'Descripción del problema',
-      'Ubicación exacta',
-      'Contacto telefónico'
+      'Copia de cédula de identidad',
+      'Prueba de propiedad o contrato de arrendamiento',
+      'Croquis de ubicación del predio'
     ],
-    buttonText: 'Reportar Incidente'
+    buttonText: 'Solicitar Servicio'
   },
   {
     title: 'Solicitud de Facturas',
@@ -78,7 +77,7 @@ export default function Gestiones() {
     >
       <Grid container spacing={4}>
         {gestionesData.map((gestion, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid key={index} size={{ xs: 12, md: 6 }}>
             <Card
               className="gestion-card"
               sx={{
