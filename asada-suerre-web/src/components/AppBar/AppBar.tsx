@@ -13,6 +13,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { ReactComponent as LogoAsada } from '../../assets/asada-suerre-logo.svg';
 import './AppBar.scss';
+import headerImageMd from '../../assets/header-md.JPG';
+import headerImageXs from '../../assets/header-xs.JPG';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -45,12 +47,24 @@ export default function AppBarComponent() {
         boxShadow: 0,
         bgcolor: "transparent",
         backgroundImage: "none",
-        mt: "calc(var(--template-frame-height, 0px) + 28px)",
+        mt: "calc(var(--template-frame-height, 0px))",
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
+      {/* Hero Section with Background Image */}
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          height: { xs: '100px', md: '200px' },
+          backgroundImage: { xs: `url(${headerImageXs})`, md: `url(${headerImageMd})` },
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
       <Container maxWidth="lg">
-        <StyledToolbar variant="dense" disableGutters sx={{ bgcolor: "#04A6DB", border: "1px solid black" }}>
+        <StyledToolbar variant="dense" disableGutters sx={{ bgcolor: "#04A6DB", border: "1px solid black", top: '-50px' }}>
           <Box
             sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}
           >
@@ -89,9 +103,6 @@ export default function AppBarComponent() {
             <Button variant="text" color="primary" size="small">
                 Nuestra historia
               </Button>
-            <Button color="primary" variant="text" size="small">
-              Contactos
-            </Button>
             <Button color="primary" variant="contained" size="small">
               Portal Administrativo
             </Button>
@@ -118,7 +129,11 @@ export default function AppBarComponent() {
               slotProps={{
                 paper: {
                   sx: {
-                    top: "var(--template-frame-height, 80px)",
+                    top: "var(--template-frame-height, 100px)",
+                    marginLeft: "5%",
+                    marginRight: "8%",
+                    border: "1px solid black",
+                    borderRadius: "8px"
                   }
                 }
               }}
@@ -131,13 +146,8 @@ export default function AppBarComponent() {
                 <MenuItem>Nuestra historia</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
-                  <Button color="primary" variant="contained" fullWidth>
+                  <Button color="secondary" variant="contained" fullWidth>
                     Portal Administrativo
-                  </Button>
-                </MenuItem>
-                <MenuItem>
-                  <Button color="primary" variant="outlined" fullWidth>
-                    Contactos
                   </Button>
                 </MenuItem>
               </Box>
