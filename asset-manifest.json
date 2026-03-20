@@ -1,18 +1,28 @@
 {
   "files": {
-    "main.css": "/AsadaSuerreWeb/static/css/main.00fadccc.css",
-    "main.js": "/AsadaSuerreWeb/static/js/main.e792a5b2.js",
+    "main.css": "/AsadaSuerreWeb/static/css/main.a593116a.css",
+    "main.js": "/AsadaSuerreWeb/static/js/main.fa447596.js",
     "static/js/453.23aef36d.chunk.js": "/AsadaSuerreWeb/static/js/453.23aef36d.chunk.js",
     "static/media/header-md.JPG": "/AsadaSuerreWeb/static/media/header-md.64b54bb7b9ca6b85d504.JPG",
+    "static/media/IMG_3680.JPG": "/AsadaSuerreWeb/static/media/IMG_3680.8dc149e86e86b83822a5.JPG",
+    "static/media/IMG_3689.JPG": "/AsadaSuerreWeb/static/media/IMG_3689.7b0deee26ccea2327b33.JPG",
+    "static/media/IMG_3698.JPG": "/AsadaSuerreWeb/static/media/IMG_3698.6763a6566f1637b388c1.JPG",
+    "static/media/IMG_3683.JPG": "/AsadaSuerreWeb/static/media/IMG_3683.f508db969c5befe1160f.JPG",
+    "static/media/IMG_3723.JPG": "/AsadaSuerreWeb/static/media/IMG_3723.d6a1aff04513b9ed112b.JPG",
+    "static/media/IMG_3685.JPG": "/AsadaSuerreWeb/static/media/IMG_3685.5de152cdb3d5eaf952d5.JPG",
+    "static/media/IMG_3661.JPG": "/AsadaSuerreWeb/static/media/IMG_3661.19a11dd605be20a1feeb.JPG",
     "static/media/header-xs.JPG": "/AsadaSuerreWeb/static/media/header-xs.73fd54cc5c4a7f2cb403.JPG",
+    "static/media/IMG_3660.JPG": "/AsadaSuerreWeb/static/media/IMG_3660.566940f98bd5547219f7.JPG",
+    "static/media/IMG_3658.JPG": "/AsadaSuerreWeb/static/media/IMG_3658.3803efb10a4482a2996b.JPG",
+    "static/media/IMG_3657.JPG": "/AsadaSuerreWeb/static/media/IMG_3657.2872b293227dec5ada42.JPG",
     "static/media/asada-suerre-logo.svg": "/AsadaSuerreWeb/static/media/asada-suerre-logo.554c0c1984ae99796d50fbbe23f6b1d6.svg",
     "index.html": "/AsadaSuerreWeb/index.html",
-    "main.00fadccc.css.map": "/AsadaSuerreWeb/static/css/main.00fadccc.css.map",
-    "main.e792a5b2.js.map": "/AsadaSuerreWeb/static/js/main.e792a5b2.js.map",
+    "main.a593116a.css.map": "/AsadaSuerreWeb/static/css/main.a593116a.css.map",
+    "main.fa447596.js.map": "/AsadaSuerreWeb/static/js/main.fa447596.js.map",
     "453.23aef36d.chunk.js.map": "/AsadaSuerreWeb/static/js/453.23aef36d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.00fadccc.css",
-    "static/js/main.e792a5b2.js"
+    "static/css/main.a593116a.css",
+    "static/js/main.fa447596.js"
   ]
 }
