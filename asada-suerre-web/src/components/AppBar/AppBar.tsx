@@ -115,10 +115,10 @@ export default function AppBarComponent() {
                 size="small"
                 onClick={() => handleNavigation("/noticias")}
                 sx={{
-                  backgroundColor: isActive("/noticias")
+                  backgroundColor: isActive("/noticias") || isActive("/")
                     ? "primary.dark"
                     : "transparent",
-                  color: isActive("/noticias")
+                  color: isActive("/noticias") || isActive("/")
                     ? "primary.contrastText"
                     : "inherit",
                 }}

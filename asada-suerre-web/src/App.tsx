@@ -26,7 +26,7 @@ function AppContent() {
         <AppBar />
         <Box sx={{ minHeight: 'calc(100vh - 160px)' }}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Noticias />} />
             <Route path="/noticias" element={<Noticias />} />
             <Route path="/gestiones" element={<Gestiones />} />
             <Route path="/gobernanza" element={<Gobernanza />} />
