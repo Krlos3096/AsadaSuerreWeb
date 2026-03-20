@@ -109,7 +109,7 @@ export default function Contactos() {
           />
         </Box>
         <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center', display: 'block', mt: 2 }}>
-          Visítanos en nuestra ubicación en Suerre, Guácimo, Limón
+          Visítanos en nuestra ubicación en Suerre, Jiménez, Pococí, Limón
         </Typography>
       </Paper>
       <Grid container spacing={4}>
