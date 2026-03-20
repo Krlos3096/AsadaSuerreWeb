@@ -1,0 +1,38 @@
+// Search Component Styles
+.search-container {
+  width: 100%;
+  max-width: 25ch;
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+.search-input {
+  width: 100%;
+  
+  .MuiOutlinedInput-root {
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.23);
+    }
+    
+    &.Mui-focused {
+      border-color: #04A6DB;
+      box-shadow: 0 0 0 2px rgba(4, 166, 219, 0.2);
+    }
+  }
+  
+  .MuiInputAdornment-root {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .search-container {
+    margin-bottom: 16px;
+  }
+}

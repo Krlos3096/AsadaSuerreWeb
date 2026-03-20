@@ -1,0 +1,138 @@
+// GenericCard Component Styles
+.generic-card {
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  &.Mui-focused {
+    outline: 3px solid hsla(210, 98%, 48%, 0.5);
+    outline-offset: 2px;
+  }
+}
+
+// Variant-specific styles
+.generic-card--news {
+  .MuiCardMedia-root {
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+.generic-card--service,
+.generic-card--governance,
+.generic-card--contact {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.generic-card--contact {
+  .card-icon {
+    font-size: 48px;
+  }
+}
+
+// Size variants
+.generic-card--small {
+  .MuiCardContent-root {
+    padding: 12px;
+  }
+  
+  .MuiTypography-h6 {
+    font-size: 1.1rem;
+  }
+}
+
+.generic-card--large {
+  .MuiCardContent-root {
+    padding: 20px;
+  }
+  
+  .MuiTypography-h5 {
+    font-size: 1.5rem;
+  }
+}
+
+// Card content styles
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.card-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: #04A6DB;
+  font-size: 32px;
+}
+
+.card-actions {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+// Author section (for news cards)
+.card-author {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  
+  .author-avatars {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+  }
+  
+  .author-count {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .generic-card {
+    margin-bottom: 16px;
+  }
+  
+  .generic-card--service,
+  .generic-card--governance,
+  .generic-card--contact {
+    margin-bottom: 16px;
+  }
+}
+
+// Animation for hover effects
+@keyframes cardLift {
+  0% {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.generic-card--service:hover,
+.generic-card--governance:hover,
+.generic-card--contact:hover {
+  animation: cardLift 0.3s ease-in-out;
+}

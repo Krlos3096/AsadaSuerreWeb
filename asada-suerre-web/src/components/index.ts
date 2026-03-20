@@ -6,6 +6,8 @@ export { default as Home } from './Home/Home';
 export { default as ContactsContainer } from './ContactsContainer/ContactsContainer';
 export { default as ContactFloat } from './ContactFloat/ContactFloat';
 export { default as ScrollToTop } from './ScrollToTop/ScrollToTop';
+export { default as GenericCard } from './GenericCard/GenericCard';
+export { default as Search } from './Search/Search';
 
 // Section components for routing
 export { default as Noticias } from './Noticias/Noticias';

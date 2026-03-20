@@ -1,135 +1,28 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import { styled } from '@mui/material/styles';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import { Box, Container } from '@mui/material';
+import Chip from '@mui/material/Chip';
 import newsData from '../../assets/news-data.json';
+import GenericCard from '../GenericCard/GenericCard';
+import { GenericCardData } from '../GenericCard/GenericCard';
+import Search from '../Search/Search';
 import './Noticias.scss';
-import { Container } from '@mui/material';
-
-const StyledCard = styled(Card)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  padding: 0,
-  height: '100%',
-  backgroundColor: (theme.vars || theme).palette.background.paper,
-  '&:hover': {
-    backgroundColor: 'transparent',
-    cursor: 'pointer',
-  },
-  '&:focus-visible': {
-    outline: '3px solid',
-    outlineColor: 'hsla(210, 98%, 48%, 0.5)',
-    outlineOffset: '2px',
-  },
-}));
-
-const StyledCardContent = styled(CardContent)({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 4,
-  padding: 16,
-  flexGrow: 1,
-  '&:last-child': {
-    paddingBottom: 16,
-  },
-});
-
-const StyledTypography = styled(Typography)({
-  display: '-webkit-box',
-  WebkitBoxOrient: 'vertical',
-  WebkitLineClamp: 2,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-});
-
-function Author({ authors }: { authors: { name: string; avatar: string }[] }) {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        gap: 2,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '16px',
-      }}
-    >
-      <Box
-        sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center' }}
-      >
-        <AvatarGroup max={3}>
-          {authors.map((author, index) => (
-            <Avatar
-              key={index}
-              alt={author.name}
-              src={author.avatar}
-              sx={{ width: 24, height: 24 }}
-            />
-          ))}
-        </AvatarGroup>
-        <Typography variant="caption">
-          {authors.map((author) => author.name).join(', ')}
-        </Typography>
-      </Box>
-      <Typography variant="caption">July 14, 2021</Typography>
-    </Box>
-  );
-}
-
-export function Search({ value, onChange }: { value: string; onChange: (event: React.ChangeEvent<HTMLInputElement>) => void }) {
-  return (
-    <FormControl sx={{ width: { xs: '100%', md: '25ch' } }} variant="outlined">
-      <OutlinedInput
-        size="small"
-        id="search"
-        value={value}
-        onChange={onChange}
-        sx={{ flexGrow: 1 }}
-        startAdornment={
-          <InputAdornment position="start" sx={{ color: 'text.primary' }}>
-            <SearchRoundedIcon fontSize="small" />
-          </InputAdornment>
-        }
-        inputProps={{
-          'aria-label': 'search',
-        }}
-      />
-    </FormControl>
-  );
-}
 
 export default function Noticias() {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedCategory, setSelectedCategory] = React.useState('Todo');
   const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(null);
-  const [selectedCategory, setSelectedCategory] = React.useState<string>('Todo');
-  const [searchQuery, setSearchQuery] = React.useState<string>('');
 
-  // Extract unique categories from news data
   const categories = React.useMemo(() => {
     const uniqueTags = Array.from(new Set(newsData.map(item => item.tag)));
     return ['Todo', ...uniqueTags];
   }, []);
 
-  // Filter news based on selected category and search query
   const filteredNews = React.useMemo(() => {
     let filtered = newsData;
-    
-    // Filter by category
     if (selectedCategory !== 'Todo') {
       filtered = filtered.filter(item => item.tag === selectedCategory);
     }
-    
-    // Filter by search query
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase().trim();
       filtered = filtered.filter(item => 
@@ -137,9 +30,16 @@ export default function Noticias() {
         item.description.toLowerCase().includes(query)
       );
     }
-    
     return filtered;
   }, [selectedCategory, searchQuery]);
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
 
   const handleFocus = (index: number) => {
     setFocusedCardIndex(index);
@@ -149,13 +49,15 @@ export default function Noticias() {
     setFocusedCardIndex(null);
   };
 
-  const handleCategoryClick = (category: string) => {
-    setSelectedCategory(category);
-  };
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-  };
+  // Transform news data to GenericCard format
+  const transformedNews: GenericCardData[] = filteredNews.map((news, index) => ({
+    id: index.toString(),
+    title: news.title,
+    description: news.description,
+    image: news.img,
+    tag: news.tag,
+    authors: news.authors
+  }));
 
   return (
     <Container
@@ -238,42 +140,17 @@ export default function Noticias() {
         </Box>
       </Box>
       <Grid container spacing={2} columns={12}>
-        {filteredNews.map((news, index) => (
-          <Grid key={news.title} size={{ xs: 12, md: 6 }}>
-            <StyledCard
-              variant="outlined"
-              onFocus={() => handleFocus(index)}
+        {transformedNews.map((news, index) => (
+          <Grid key={news.id} size={{ xs: 12, md: 6 }}>
+            <GenericCard
+              data={news}
+              variant="news"
+              focused={focusedCardIndex === index}
+              onFocus={handleFocus}
               onBlur={handleBlur}
               tabIndex={0}
-              className={focusedCardIndex === index ? "Mui-focused" : ""}
-            >
-              <CardMedia
-                component="img"
-                alt={news.title}
-                image={news.img}
-                sx={{
-                  aspectRatio: "16 / 9",
-                  borderBottom: "1px solid",
-                  borderColor: "divider",
-                }}
-              />
-              <StyledCardContent>
-                <Typography gutterBottom variant="caption" component="div">
-                  {news.tag}
-                </Typography>
-                <Typography gutterBottom variant="h6" component="div">
-                  {news.title}
-                </Typography>
-                <StyledTypography
-                  variant="body2"
-                  color="text.secondary"
-                  gutterBottom
-                >
-                  {news.description}
-                </StyledTypography>
-              </StyledCardContent>
-              <Author authors={news.authors} />
-            </StyledCard>
+              size="large"
+            />
           </Grid>
         ))}
       </Grid>

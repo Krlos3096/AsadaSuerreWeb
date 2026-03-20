@@ -1,20 +1,12 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import PaymentIcon from '@mui/icons-material/Payment';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import GenericCard from '../GenericCard/GenericCard';
+import { GenericCardData } from '../GenericCard/GenericCard';
 import './Gestiones.scss';
 
 const gestionesData = [
@@ -64,6 +56,30 @@ const gestionesData = [
 ];
 
 export default function Gestiones() {
+  // Transform gestiones data to GenericCard format
+  const transformedGestiones: GenericCardData[] = gestionesData.map((gestion, index) => ({
+    id: index.toString(),
+    title: gestion.title,
+    description: gestion.description,
+    metadata: {
+      icon: gestion.icon,
+      requirements: gestion.requirements
+    },
+    actions: [
+      {
+        label: gestion.buttonText,
+        onClick: () => {
+          if (gestion.title === 'Consulta de Recibos') {
+            window.open('https://www.cisaweb.com/mclientes', '_blank');
+          } else {
+            console.log(`${gestion.buttonText} clicked`);
+          }
+        },
+        variant: 'contained'
+      }
+    ]
+  }));
+
   return (
     <Container
       maxWidth="lg"
@@ -76,86 +92,12 @@ export default function Gestiones() {
       }}
     >
       <Grid container spacing={4}>
-        {gestionesData.map((gestion, index) => (
-          <Grid key={index} size={{ xs: 12, md: 6 }}>
-            <Card
-              className="gestion-card"
-              sx={{
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                transition: "all 0.3s ease-in-out",
-                "&:hover": {
-                  transform: "translateY(-4px)",
-                  boxShadow: 4,
-                },
-              }}
-            >
-              <CardContent sx={{ flexGrow: 1, textAlign: "center", p: 3 }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    mb: 2,
-                    color: "primary.main",
-                  }}
-                >
-                  {gestion.icon}
-                </Box>
-                <Typography
-                  variant="h6"
-                  component="h3"
-                  gutterBottom
-                  sx={{ fontWeight: "bold" }}
-                >
-                  {gestion.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" paragraph>
-                  {gestion.description}
-                </Typography>
-
-                <Paper
-                  variant="outlined"
-                  sx={{ p: 2, mb: 2, backgroundColor: "grey.50" }}
-                >
-                  <Typography
-                    variant="subtitle2"
-                    gutterBottom
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    Requisitos:
-                  </Typography>
-                  <List dense>
-                    {gestion.requirements.map((req, reqIndex) => (
-                      <ListItem key={reqIndex} sx={{ px: 0, py: 0.5 }}>
-                        <ListItemIcon sx={{ minWidth: 24 }}>
-                          <Box
-                            sx={{
-                              width: 6,
-                              height: 6,
-                              borderRadius: "50%",
-                              backgroundColor: "primary.main",
-                            }}
-                          />
-                        </ListItemIcon>
-                        <ListItemText
-                          primary={req}
-                          primaryTypographyProps={{ variant: "body2" }}
-                        />
-                      </ListItem>
-                    ))}
-                  </List>
-                </Paper>
-
-                <Button
-                  variant="contained"
-                  fullWidth
-                  className="gestion-button"
-                >
-                  {gestion.buttonText}
-                </Button>
-              </CardContent>
-            </Card>
+        {transformedGestiones.map((gestion) => (
+          <Grid key={gestion.id} size={{ xs: 12, md: 6 }}>
+            <GenericCard
+              data={gestion}
+              variant="service"
+            />
           </Grid>
         ))}
       </Grid>
