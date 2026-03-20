@@ -1,0 +1,74 @@
+// Gobernanza Component Styles
+.gobernanza-container {
+  padding: 2rem 0;
+}
+
+.gobernanza-card {
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  
+  &:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+.gobernanza-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #04A6DB;
+}
+
+.documentos-list {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  
+  .MuiList-root {
+    padding: 0.5rem 0;
+  }
+  
+  .MuiListItem-root {
+    padding: 0.25rem 0;
+    
+    .MuiListItemText-primary {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+  }
+}
+
+.gobernanza-button {
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: auto;
+  border-color: #04A6DB;
+  color: #04A6DB;
+  
+  &:hover {
+    border-color: #0387be;
+    color: #0387be;
+    background-color: rgba(4, 166, 219, 0.04);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(4, 166, 219, 0.2);
+  }
+}
+
+@media (max-width: 768px) {
+  .gobernanza-container {
+    padding: 1rem 0;
+  }
+  
+  .gobernanza-card {
+    margin-bottom: 1rem;
+  }
+  
+  .gobernanza-icon {
+    font-size: 2.5rem;
+  }
+}

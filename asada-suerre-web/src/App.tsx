@@ -1,11 +1,42 @@
-import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import AppTheme from './shared-theme/AppTheme';
+import { 
+  AppBar, 
+  Home, 
+  Noticias, 
+  Gestiones, 
+  Gobernanza, 
+  NuestraHistoria, 
+  Footer, 
+  ContactsContainer 
+} from './components';
 import './App.css';
-import { Home } from './components';
 
-function App() {
+function AppContent() {
   return (
-    <Home />
+    <AppTheme>
+      <CssBaseline enableColorScheme />
+      <Router>
+        <AppBar />
+        <Box sx={{ minHeight: 'calc(100vh - 160px)' }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/noticias" element={<Noticias />} />
+            <Route path="/gestiones" element={<Gestiones />} />
+            <Route path="/gobernanza" element={<Gobernanza />} />
+            <Route path="/nuestra-historia" element={<NuestraHistoria />} />
+          </Routes>
+        </Box>
+        <Footer />
+        <ContactsContainer />
+      </Router>
+    </AppTheme>
   );
 }
 
-export default App;
+export default function App() {
+  return <AppContent />;
+}

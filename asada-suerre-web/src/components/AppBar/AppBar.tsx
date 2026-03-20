@@ -9,12 +9,14 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
+import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { ReactComponent as LogoAsada } from '../../assets/asada-suerre-logo.svg';
-import './AppBar.scss';
+import { useNavigate, useLocation } from 'react-router-dom';
 import headerImageMd from '../../assets/header-md.JPG';
 import headerImageXs from '../../assets/header-xs.JPG';
+import './AppBar.scss';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -34,9 +36,30 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 export default function AppBarComponent() {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
+  };
+
+  const handleNavigation = (path: string) => {
+    if (path === '/consulta-en-linea') {
+      // Open external portal in new tab
+      window.open('https://www.cisaweb.com/mclientes/', '_blank', 'noopener,noreferrer');
+    } else {
+      // Normal navigation for other routes
+      navigate(path);
+    }
+    setOpen(false);
+  };
+
+  const isActive = (path: string) => {
+    // ConsultaEnLinea opens in new tab, so it's never "active" in the app
+    if (path === '/consulta-en-linea') {
+      return false;
+    }
+    return location.pathname === path;
   };
 
   return (
@@ -79,16 +102,52 @@ export default function AppBarComponent() {
                   objectFit: "contain",
                 }}
               />
-              <Button variant="text" color="primary" size="small">
+              <Button 
+                variant="text" 
+                color="primary" 
+                size="small"
+                onClick={() => handleNavigation('/noticias')}
+                sx={{ 
+                  backgroundColor: isActive('/noticias') ? 'primary.dark' : 'transparent',
+                  color: isActive('/noticias') ? 'primary.contrastText' : 'inherit'
+                }}
+              >
                 Noticias
               </Button>
-              <Button variant="text" color="primary" size="small">
-                Consulta en linea
+              <Button 
+                variant="text" 
+                color="primary" 
+                size="small"
+                onClick={() => handleNavigation('/consulta-en-linea')}
+                sx={{ 
+                  backgroundColor: 'transparent',
+                  color: 'inherit'
+                }}
+              >
+                Consulta tu recibo
               </Button>
-              <Button variant="text" color="primary" size="small">
+              <Button 
+                variant="text" 
+                color="primary" 
+                size="small"
+                onClick={() => handleNavigation('/gestiones')}
+                sx={{ 
+                  backgroundColor: isActive('/gestiones') ? 'primary.dark' : 'transparent',
+                  color: isActive('/gestiones') ? 'primary.contrastText' : 'inherit'
+                }}
+              >
                 Gestiones
               </Button>
-              <Button variant="text" color="primary" size="small">
+              <Button 
+                variant="text" 
+                color="primary" 
+                size="small"
+                onClick={() => handleNavigation('/gobernanza')}
+                sx={{ 
+                  backgroundColor: isActive('/gobernanza') ? 'primary.dark' : 'transparent',
+                  color: isActive('/gobernanza') ? 'primary.contrastText' : 'inherit'
+                }}
+              >
                 Gobernanza 
               </Button>
             </Box>
@@ -100,7 +159,16 @@ export default function AppBarComponent() {
               alignItems: "center",
             }}
           >
-            <Button variant="text" color="primary" size="small">
+            <Button 
+              variant="text" 
+              color="primary" 
+              size="small"
+              onClick={() => handleNavigation('/nuestra-historia')}
+              sx={{ 
+                backgroundColor: isActive('/nuestra-historia') ? 'primary.dark' : 'transparent',
+                color: isActive('/nuestra-historia') ? 'primary.contrastText' : 'inherit'
+              }}
+            >
                 Nuestra historia
               </Button>
             <Button color="primary" variant="contained" size="small">
@@ -133,17 +201,23 @@ export default function AppBarComponent() {
                     marginLeft: "5%",
                     marginRight: "8%",
                     border: "1px solid black",
-                    borderRadius: "8px"
+                    borderRadius: "8px",
+                    paddingTop: "20px"
                   }
                 }
               }}
             >
               <Box sx={{ p: 2, backgroundColor: "background.default" }}>
-                <MenuItem>Noticias</MenuItem>
-                <MenuItem>Consulta en linea</MenuItem>
-                <MenuItem>Gestiones</MenuItem>
-                <MenuItem>Gobernanza </MenuItem>
-                <MenuItem>Nuestra historia</MenuItem>
+                <MenuItem onClick={() => handleNavigation('/noticias')}>Noticias</MenuItem>
+                <MenuItem onClick={() => handleNavigation('/consulta-en-linea')}>
+                Consulta tu recibo
+                <Typography variant="caption" sx={{ ml: 1, color: 'text.secondary' }}>
+                  (abre en nueva pestaña)
+                </Typography>
+              </MenuItem>
+                <MenuItem onClick={() => handleNavigation('/gestiones')}>Gestiones</MenuItem>
+                <MenuItem onClick={() => handleNavigation('/gobernanza')}>Gobernanza </MenuItem>
+                <MenuItem onClick={() => handleNavigation('/nuestra-historia')}>Nuestra historia</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="secondary" variant="contained" fullWidth>

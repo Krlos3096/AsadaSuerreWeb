@@ -1,7 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import AppTheme from '../../shared-theme/AppTheme';
-import { AppBar, MainContent, Latest, Footer, ContactsContainer } from '../index';
+import { AppBar, Noticias, Footer, ContactsContainer } from '../index';
 import './Home.scss';
 
 
@@ -17,8 +17,7 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
         component="main"
         sx={{ display: 'flex', flexDirection: 'column', my: { xs: 16, md: 32 }, gap: 4 }}
       >
-        <MainContent />
-        <Latest />
+        <Noticias />
       </Container>
       <Footer />
       <ContactsContainer />
