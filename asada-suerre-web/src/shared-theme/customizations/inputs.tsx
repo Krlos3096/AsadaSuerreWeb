@@ -93,7 +93,7 @@ export const inputsCustomizations: Components<Theme> = {
             style: {
               fontWeight: 'bold',
               color: brand[50],
-              backgroundColor: brand[300],
+              backgroundColor: brand[500],
               boxShadow: `inset 0 2px 0 ${alpha(brand[200], 0.2)}, inset 0 -2px 0 ${alpha(brand[700], 0.4)}`,
               border: `1px solid ${brand[500]}`,
               '&:hover': {
