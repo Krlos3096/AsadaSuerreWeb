@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/AsadaSuerreWeb/static/css/main.00fadccc.css",
-    "main.js": "/AsadaSuerreWeb/static/js/main.c025f00a.js",
+    "main.js": "/AsadaSuerreWeb/static/js/main.e792a5b2.js",
     "static/js/453.23aef36d.chunk.js": "/AsadaSuerreWeb/static/js/453.23aef36d.chunk.js",
     "static/media/header-md.JPG": "/AsadaSuerreWeb/static/media/header-md.64b54bb7b9ca6b85d504.JPG",
     "static/media/header-xs.JPG": "/AsadaSuerreWeb/static/media/header-xs.73fd54cc5c4a7f2cb403.JPG",
     "static/media/asada-suerre-logo.svg": "/AsadaSuerreWeb/static/media/asada-suerre-logo.554c0c1984ae99796d50fbbe23f6b1d6.svg",
     "index.html": "/AsadaSuerreWeb/index.html",
     "main.00fadccc.css.map": "/AsadaSuerreWeb/static/css/main.00fadccc.css.map",
-    "main.c025f00a.js.map": "/AsadaSuerreWeb/static/js/main.c025f00a.js.map",
+    "main.e792a5b2.js.map": "/AsadaSuerreWeb/static/js/main.e792a5b2.js.map",
     "453.23aef36d.chunk.js.map": "/AsadaSuerreWeb/static/js/453.23aef36d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.00fadccc.css",
-    "static/js/main.c025f00a.js"
+    "static/js/main.e792a5b2.js"
   ]
 }
