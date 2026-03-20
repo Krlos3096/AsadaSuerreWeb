@@ -5,12 +5,16 @@ export { default as Latest } from './Latest/Latest';
 export { default as Home } from './Home/Home';
 export { default as ContactsContainer } from './ContactsContainer/ContactsContainer';
 export { default as ContactFloat } from './ContactFloat/ContactFloat';
+export { default as ScrollToTop } from './ScrollToTop/ScrollToTop';
+export { default as GenericCard } from './GenericCard/GenericCard';
+export { default as Search } from './Search/Search';
 
 // Section components for routing
 export { default as Noticias } from './Noticias/Noticias';
 export { default as Gestiones } from './Gestiones/Gestiones';
 export { default as Gobernanza } from './Gobernanza/Gobernanza';
 export { default as NuestraHistoria } from './NuestraHistoria/NuestraHistoria';
+export { default as Contactos } from './Contactos/Contactos';
 
 // Re-export types if needed
 export type { default as AppBarProps } from './AppBar/AppBar';

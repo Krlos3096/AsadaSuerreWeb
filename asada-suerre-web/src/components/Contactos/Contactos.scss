@@ -1,0 +1,70 @@
+// Contactos Component Styles
+.contactos-container {
+  padding: 2rem 0;
+}
+
+.contact-card {
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+.contact-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #04A6DB;
+}
+
+.contact-button {
+  background: linear-gradient(45deg, #04A6DB, #0387be);
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: auto;
+  
+  &:hover {
+    background: linear-gradient(45deg, #0387be, #0268a3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(4, 166, 219, 0.3);
+  }
+}
+
+.map-section {
+  .MuiPaper-root {
+    border-radius: 12px;
+    border: 1px solid rgba(4, 166, 219, 0.2);
+    overflow: hidden;
+  }
+}
+
+.map-container {
+  border-radius: 8px;
+  overflow: hidden;
+  
+  iframe {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contactos-container {
+    padding: 1rem 0;
+  }
+  
+  .contact-card {
+    margin-bottom: 1rem;
+  }
+  
+  .contact-icon {
+    font-size: 2.5rem;
+  }
+}
