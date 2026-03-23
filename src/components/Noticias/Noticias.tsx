@@ -6,6 +6,17 @@ import newsData from '../../assets/news-data.json';
 import GenericCard from '../GenericCard/GenericCard';
 import { GenericCardData } from '../GenericCard/GenericCard';
 import Search from '../Search/Search';
+// Import images directly
+import IMG_3657 from '../../assets/news-images/IMG_3657.JPG';
+import IMG_3658 from '../../assets/news-images/IMG_3658.JPG';
+import IMG_3660 from '../../assets/news-images/IMG_3660.JPG';
+import IMG_3661 from '../../assets/news-images/IMG_3661.JPG';
+import IMG_3680 from '../../assets/news-images/IMG_3680.JPG';
+import IMG_3683 from '../../assets/news-images/IMG_3683.JPG';
+import IMG_3685 from '../../assets/news-images/IMG_3685.JPG';
+import IMG_3689 from '../../assets/news-images/IMG_3689.JPG';
+import IMG_3698 from '../../assets/news-images/IMG_3698.JPG';
+import IMG_3723 from '../../assets/news-images/IMG_3723.JPG';
 import './Noticias.scss';
 
 export default function Noticias() {
@@ -49,12 +60,26 @@ export default function Noticias() {
     setFocusedCardIndex(null);
   };
 
+  // Image mapping object
+  const imageMap: { [key: string]: string } = {
+    './news-images/IMG_3657.JPG': IMG_3657,
+    './news-images/IMG_3658.JPG': IMG_3658,
+    './news-images/IMG_3660.JPG': IMG_3660,
+    './news-images/IMG_3661.JPG': IMG_3661,
+    './news-images/IMG_3680.JPG': IMG_3680,
+    './news-images/IMG_3683.JPG': IMG_3683,
+    './news-images/IMG_3685.JPG': IMG_3685,
+    './news-images/IMG_3689.JPG': IMG_3689,
+    './news-images/IMG_3698.JPG': IMG_3698,
+    './news-images/IMG_3723.JPG': IMG_3723,
+  };
+
   // Transform news data to GenericCard format
   const transformedNews: GenericCardData[] = filteredNews.map((news, index) => ({
     id: index.toString(),
     title: news.title,
     description: news.description,
-    image: news.img,
+    image: imageMap[news.img] || news.img, // Use mapped image or fallback to original
     tag: news.tag,
     authors: news.authors
   }));
