@@ -1,28 +1,26 @@
 {
   "files": {
-    "main.css": "/AsadaSuerreWeb/static/css/main.43bfa6b8.css",
-    "main.js": "/AsadaSuerreWeb/static/js/main.c829a66a.js",
-    "static/js/453.23aef36d.chunk.js": "/AsadaSuerreWeb/static/js/453.23aef36d.chunk.js",
-    "static/media/header-md.JPG": "/AsadaSuerreWeb/static/media/header-md.64b54bb7b9ca6b85d504.JPG",
-    "static/media/IMG_3680.JPG": "/AsadaSuerreWeb/static/media/IMG_3680.8dc149e86e86b83822a5.JPG",
-    "static/media/IMG_3689.JPG": "/AsadaSuerreWeb/static/media/IMG_3689.7b0deee26ccea2327b33.JPG",
-    "static/media/IMG_3698.JPG": "/AsadaSuerreWeb/static/media/IMG_3698.6763a6566f1637b388c1.JPG",
-    "static/media/IMG_3683.JPG": "/AsadaSuerreWeb/static/media/IMG_3683.f508db969c5befe1160f.JPG",
-    "static/media/IMG_3723.JPG": "/AsadaSuerreWeb/static/media/IMG_3723.d6a1aff04513b9ed112b.JPG",
-    "static/media/IMG_3685.JPG": "/AsadaSuerreWeb/static/media/IMG_3685.5de152cdb3d5eaf952d5.JPG",
-    "static/media/IMG_3661.JPG": "/AsadaSuerreWeb/static/media/IMG_3661.19a11dd605be20a1feeb.JPG",
-    "static/media/header-xs.JPG": "/AsadaSuerreWeb/static/media/header-xs.73fd54cc5c4a7f2cb403.JPG",
-    "static/media/IMG_3660.JPG": "/AsadaSuerreWeb/static/media/IMG_3660.566940f98bd5547219f7.JPG",
-    "static/media/IMG_3658.JPG": "/AsadaSuerreWeb/static/media/IMG_3658.3803efb10a4482a2996b.JPG",
-    "static/media/IMG_3657.JPG": "/AsadaSuerreWeb/static/media/IMG_3657.2872b293227dec5ada42.JPG",
-    "static/media/asada-suerre-logo.svg": "/AsadaSuerreWeb/static/media/asada-suerre-logo.747d8dc4fe8be2da7960aaf4d9566403.svg",
-    "index.html": "/AsadaSuerreWeb/index.html",
-    "main.43bfa6b8.css.map": "/AsadaSuerreWeb/static/css/main.43bfa6b8.css.map",
-    "main.c829a66a.js.map": "/AsadaSuerreWeb/static/js/main.c829a66a.js.map",
-    "453.23aef36d.chunk.js.map": "/AsadaSuerreWeb/static/js/453.23aef36d.chunk.js.map"
+    "main.css": "/static/css/main.5bd7349d.css",
+    "main.js": "/static/js/main.9221d3cb.js",
+    "static/js/453.23aef36d.chunk.js": "/static/js/453.23aef36d.chunk.js",
+    "static/media/IMG_3680.JPG": "/static/media/IMG_3680.8dc149e86e86b83822a5.JPG",
+    "static/media/IMG_3689.JPG": "/static/media/IMG_3689.7b0deee26ccea2327b33.JPG",
+    "static/media/IMG_3698.JPG": "/static/media/IMG_3698.6763a6566f1637b388c1.JPG",
+    "static/media/IMG_3683.JPG": "/static/media/IMG_3683.f508db969c5befe1160f.JPG",
+    "static/media/IMG_3723.JPG": "/static/media/IMG_3723.d6a1aff04513b9ed112b.JPG",
+    "static/media/IMG_3685.JPG": "/static/media/IMG_3685.5de152cdb3d5eaf952d5.JPG",
+    "static/media/IMG_3661.JPG": "/static/media/IMG_3661.19a11dd605be20a1feeb.JPG",
+    "static/media/IMG_3660.JPG": "/static/media/IMG_3660.566940f98bd5547219f7.JPG",
+    "static/media/IMG_3658.JPG": "/static/media/IMG_3658.3803efb10a4482a2996b.JPG",
+    "static/media/IMG_3657.JPG": "/static/media/IMG_3657.2872b293227dec5ada42.JPG",
+    "static/media/asada-suerre-logo.svg": "/static/media/asada-suerre-logo.747d8dc4fe8be2da7960aaf4d9566403.svg",
+    "index.html": "/index.html",
+    "main.5bd7349d.css.map": "/static/css/main.5bd7349d.css.map",
+    "main.9221d3cb.js.map": "/static/js/main.9221d3cb.js.map",
+    "453.23aef36d.chunk.js.map": "/static/js/453.23aef36d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.43bfa6b8.css",
-    "static/js/main.c829a66a.js"
+    "static/css/main.5bd7349d.css",
+    "static/js/main.9221d3cb.js"
   ]
 }
