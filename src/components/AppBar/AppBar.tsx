@@ -16,6 +16,13 @@ import { ReactComponent as LogoAsada } from '../../assets/asada-suerre-logo.svg'
 import { useNavigate, useLocation } from 'react-router-dom';
 import headerImageMd from '../../assets/header-md.JPG';
 import headerImageXs from '../../assets/header-xs.JPG';
+import ImageCarousel from '../ImageCarousel/ImageCarousel';
+// Import carousel images
+import IMG_3657 from '../../assets/news-images/IMG_3657.JPG';
+import IMG_3658 from '../../assets/news-images/IMG_3658.JPG';
+import IMG_3660 from '../../assets/news-images/IMG_3660.JPG';
+import IMG_3661 from '../../assets/news-images/IMG_3661.JPG';
+import IMG_3680 from '../../assets/news-images/IMG_3680.JPG';
 import './AppBar.scss';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -38,6 +45,40 @@ export default function AppBarComponent() {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Carousel images with text overlays
+  const carouselImages = [
+    {
+      image: IMG_3657,
+      title: "Servicio de Agua Potable",
+      subtitle: "Calidad garantizada para todos",
+      description: "Brindamos agua segura y confiable para toda la comunidad de Suerre"
+    },
+    {
+      image: IMG_3658,
+      title: "Mantenimiento Preventivo",
+      subtitle: "Cuidamos nuestra infraestructura",
+      description: "Trabajos continuos para mejorar y mantener el sistema de distribución"
+    },
+    {
+      image: IMG_3660,
+      title: "Calidad del Agua",
+      subtitle: "Análisis rigurosos diarios",
+      description: "Monitoreo constante para asegurar los más altos estándares de potabilidad"
+    },
+    {
+      image: IMG_3661,
+      title: "Comunidad Unida",
+      subtitle: "Trabajando juntos por el futuro",
+      description: "Participación activa de los vecinos en el cuidado del recurso hídrico"
+    },
+    {
+      image: IMG_3680,
+      title: "Innovación y Tecnología",
+      subtitle: "Modernizando nuestros sistemas",
+      description: "Implementando soluciones tecnológicas para un servicio más eficiente"
+    }
+  ];
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -75,19 +116,14 @@ export default function AppBarComponent() {
       }}
     >
       {/* Hero Section with Background Image */}
-      <Box
-        sx={{
-          position: "relative",
-          width: "100%",
-          height: { xs: "100px", md: "200px" },
-          backgroundImage: {
-            xs: `url(${headerImageXs})`,
-            md: `url(${headerImageMd})`,
-          },
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
+      <ImageCarousel 
+        images={carouselImages} 
+        autoPlay={true} 
+        interval={4000} 
+        sx={{ 
+          position: 'relative',
+          zIndex: 0,
+        }} 
       />
       <Container maxWidth="lg">
         <StyledToolbar
@@ -115,10 +151,10 @@ export default function AppBarComponent() {
                 size="small"
                 onClick={() => handleNavigation("/noticias")}
                 sx={{
-                  backgroundColor: isActive("/noticias") || isActive("/")
+                  backgroundColor: isActive("/noticias")
                     ? "primary.dark"
                     : "transparent",
-                  color: isActive("/noticias") || isActive("/")
+                  color: isActive("/noticias")
                     ? "primary.contrastText"
                     : "inherit",
                 }}
