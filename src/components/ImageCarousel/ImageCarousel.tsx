@@ -6,6 +6,27 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+// Add CSS keyframes for smooth animations
+const styleSheet = `
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    to { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  }
+`;
+
+// Inject styles once
+if (typeof document !== 'undefined' && !document.getElementById('carousel-animations')) {
+  const style = document.createElement('style');
+  style.id = 'carousel-animations';
+  style.textContent = styleSheet;
+  document.head.appendChild(style);
+}
+
 export interface CarouselSlideData {
   image: string;
   title?: string;
@@ -18,6 +39,7 @@ export interface ImageCarouselProps {
   autoPlay?: boolean;
   interval?: number;
   sx?: BoxProps['sx'];
+  collapsed?: boolean;
 }
 
 const defaultSx = {
@@ -25,7 +47,12 @@ const defaultSx = {
   height: { xs: '72vh', md: '88vh' },
 };
 
-export default function ImageCarousel({ images, autoPlay = true, interval = 4000, sx }: ImageCarouselProps) {
+const collapsedSx = {
+  width: '100%',
+  height: { xs: '100px', md: '200px' },
+};
+
+export default function ImageCarousel({ images, autoPlay = true, interval = 4000, sx, collapsed = false }: ImageCarouselProps) {
   if (images.length === 0) {
     return (
       <Box sx={{ backgroundColor: 'grey.100', display: 'flex', alignItems: 'center', justifyContent: 'center', ...sx }}>
@@ -42,7 +69,14 @@ export default function ImageCarousel({ images, autoPlay = true, interval = 4000
     return item;
   });
 
-  const mergedSx = { ...defaultSx, ...sx };
+  const baseSx = collapsed ? collapsedSx : defaultSx;
+  const mergedSx = { 
+    ...baseSx, 
+    ...sx, 
+    transition: 'height 0.8s cubic-bezier(0.4, 0, 0.2, 1), width 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+    willChange: 'height',
+    overflow: 'hidden', // Prevent content overflow during transition
+  };
 
   return (
     <Box sx={mergedSx}>
@@ -50,7 +84,7 @@ export default function ImageCarousel({ images, autoPlay = true, interval = 4000
         modules={[Autoplay, Navigation, Pagination]}
         spaceBetween={0}
         slidesPerView={1}
-        autoplay={autoPlay ? {
+        autoplay={autoPlay && !collapsed ? {
           delay: interval,
           disableOnInteraction: false,
         } : false}
@@ -68,18 +102,37 @@ export default function ImageCarousel({ images, autoPlay = true, interval = 4000
         {normalizedSlides.map((slide, index) => (
           <SwiperSlide key={index}>
             <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
+              {/* Fixed image container to prevent resizing */}
               <Box
-                component="img"
-                src={slide.image}
-                alt={`Slide ${index + 1}`}
                 sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
+                  overflow: 'hidden',
                 }}
-              />
-              {/* Text Overlay */}
-              {(slide.title || slide.subtitle || slide.description) && (
+              >
+                <Box
+                  component="img"
+                  src={slide.image}
+                  alt={`Slide ${index + 1}`}
+                  sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    willChange: 'transform', // Hardware acceleration
+                    backfaceVisibility: 'hidden', // Prevent flickering
+                    WebkitBackfaceVisibility: 'hidden',
+                  }}
+                />
+              </Box>
+              {/* Text Overlay - Hidden when collapsed */}
+              {!collapsed && (slide.title || slide.subtitle || slide.description) && (
                 <Box
                   sx={{
                     position: 'absolute',
@@ -94,6 +147,8 @@ export default function ImageCarousel({ images, autoPlay = true, interval = 4000
                     textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
                     backgroundColor: 'rgba(0, 0, 0, 0.3)',
                     zIndex: 2,
+                    transition: 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    animation: collapsed ? 'fadeOut 0.3s ease-out forwards' : 'fadeIn 0.4s ease-in forwards',
                   }}
                 >
                   {slide.title && (

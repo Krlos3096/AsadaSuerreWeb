@@ -46,6 +46,9 @@ export default function AppBarComponent() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Determine if carousel should be collapsed (not on base path)
+  const isCarouselCollapsed = location.pathname !== '/' && location.pathname !== '';
+
   // Carousel images with text overlays
   const carouselImages = [
     {
@@ -120,6 +123,7 @@ export default function AppBarComponent() {
         images={carouselImages} 
         autoPlay={true} 
         interval={4000} 
+        collapsed={isCarouselCollapsed}
         sx={{ 
           position: 'relative',
           zIndex: 0,
