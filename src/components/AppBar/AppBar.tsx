@@ -9,13 +9,8 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
-import Typography from '@mui/material/Typography';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { ReactComponent as LogoAsada } from '../../assets/asada-suerre-logo.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
-import headerImageMd from '../../assets/header-md.JPG';
-import headerImageXs from '../../assets/header-xs.JPG';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
 // Import carousel images
 import IMG_3657 from '../../assets/news-images/IMG_3657.JPG';
@@ -24,6 +19,7 @@ import IMG_3660 from '../../assets/news-images/IMG_3660.JPG';
 import IMG_3661 from '../../assets/news-images/IMG_3661.JPG';
 import IMG_3680 from '../../assets/news-images/IMG_3680.JPG';
 import './AppBar.scss';
+import { KeyboardArrowUp, Menu, CloseRounded } from '@mui/icons-material';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -84,6 +80,10 @@ export default function AppBarComponent() {
   ];
 
   const toggleDrawer = (newOpen: boolean) => () => {
+    if(!isCarouselCollapsed) {
+      handleNavigation('/noticias');
+      return;
+    }
     setOpen(newOpen);
   };
 
@@ -149,6 +149,22 @@ export default function AppBarComponent() {
                   objectFit: "contain",
                 }}
               />
+              <Button
+                variant="text"
+                color="primary"
+                size="small"
+                onClick={() => handleNavigation("/")}
+                sx={{
+                  backgroundColor: isActive("/")
+                    ? "primary.dark"
+                    : "transparent",
+                  color: isActive("/")
+                    ? "primary.contrastText"
+                    : "inherit",
+                }}
+              >
+                Inicio
+              </Button>
               <Button
                 variant="text"
                 color="primary"
@@ -258,7 +274,7 @@ export default function AppBarComponent() {
               onClick={toggleDrawer(!open)}
               sx={{ border: "1px solid black" }}
             >
-              {open ? <CloseRoundedIcon /> : <MenuIcon />}
+              {!isCarouselCollapsed ? <KeyboardArrowUp /> : (open ? <CloseRounded /> : <Menu />)}
             </IconButton>
             <Drawer
               anchor="top"
@@ -279,6 +295,9 @@ export default function AppBarComponent() {
               }}
             >
               <Box sx={{ p: 2, backgroundColor: "background.default" }}>
+                <MenuItem onClick={() => handleNavigation("/")}>
+                  Inicio
+                </MenuItem>
                 <MenuItem onClick={() => handleNavigation("/noticias")}>
                   Noticias
                 </MenuItem>

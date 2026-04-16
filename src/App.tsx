@@ -14,7 +14,6 @@ import {
   ScrollToTop
 } from './components';
 import './App.css';
-import Wave from 'react-wavify';
 
 function AppContent() {
   return (
@@ -23,7 +22,7 @@ function AppContent() {
       <Router>
         <ScrollToTop />
         <AppBar />
-        <Box sx={{ minHeight: "calc(100vh - 250px)" }}>
+        <Box sx={{ minHeight: "calc(100vh - 250px)", my: { xs: 18, md: 20 }, }}>
           <Routes>
             <Route path="/" element={<></>} />
             <Route path="/noticias" element={<Noticias />} />
@@ -32,34 +31,6 @@ function AppContent() {
             <Route path="/contactos" element={<Contactos />} />
             <Route path="/nuestra-historia" element={<NuestraHistoria />} />
           </Routes>
-        </Box>
-        <Box
-          sx={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 999,
-            height: {xs:"25%", md:"15%"},
-          }}
-        >
-          <Wave mask="url(#mask)" fill="#04A6DB">
-            <defs>
-              <linearGradient id="gradient" gradientTransform="rotate(90)">
-                <stop offset="0" stopColor="white" />
-                <stop offset="0.5" stopColor="black" />
-              </linearGradient>
-              <mask id="mask">
-                <rect
-                  x="0"
-                  y="0"
-                  width="2000"
-                  height="200"
-                  fill="url(#gradient)"
-                />
-              </mask>
-            </defs>
-          </Wave>
         </Box>
         <Footer />
         <ContactsContainer />

@@ -69,7 +69,6 @@ export default function NuestraHistoria() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        my: { xs: 16, md: 32 },
         gap: 4,
       }}
     >

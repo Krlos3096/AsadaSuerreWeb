@@ -5,6 +5,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import BuildIcon from '@mui/icons-material/BuildCircle';
 import ContactFloat from '../ContactFloat/ContactFloat';
 import './ContactsContainer.scss';
+import { useLocation } from 'react-router-dom';
 
 interface ContactsContainerProps {
   whatsappPhoneInfo?: string;
@@ -17,18 +18,29 @@ const ContactsContainer: React.FC<ContactsContainerProps> = ({
   whatsappPhoneSupport = '+50684479692',
   facebookUrl = 'https://es-la.facebook.com/acueductosuerre#'
 }) => {
+
+  const location = useLocation();
+
   return (
-    <Box className="contacts-container">
+    <Box
+      sx={{
+        display: {
+          xs: "block",
+          md: location.pathname === "/" ? "none" : "block",
+        },
+      }}
+      className="contacts-container"
+    >
       <Box className="contacts-wrapper">
         <ContactFloat
           icon={<WhatsAppIcon />}
-          link={`https://wa.me/${whatsappPhoneInfo.replace(/[^\d]/g, '')}`}
+          link={`https://wa.me/${whatsappPhoneInfo.replace(/[^\d]/g, "")}`}
           tooltipTitle="WhatsApp Averias"
           ariaLabel="WhatsApp Averias"
         />
         <ContactFloat
           icon={<BuildIcon />}
-          link={`https://wa.me/${whatsappPhoneSupport.replace(/[^\d]/g, '')}`}
+          link={`https://wa.me/${whatsappPhoneSupport.replace(/[^\d]/g, "")}`}
           tooltipTitle="WhatsApp Gestiones"
           ariaLabel="WhatsApp Gestiones"
         />

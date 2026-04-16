@@ -6,27 +6,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// Add CSS keyframes for smooth animations
-const styleSheet = `
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
-    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  }
-  
-  @keyframes fadeOut {
-    from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    to { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
-  }
-`;
-
-// Inject styles once
-if (typeof document !== 'undefined' && !document.getElementById('carousel-animations')) {
-  const style = document.createElement('style');
-  style.id = 'carousel-animations';
-  style.textContent = styleSheet;
-  document.head.appendChild(style);
-}
-
 export interface CarouselSlideData {
   image: string;
   title?: string;
@@ -43,13 +22,11 @@ export interface ImageCarouselProps {
 }
 
 const defaultSx = {
-  width: '100%',
-  height: { xs: '72vh', md: '88vh' },
+  height: { xs: '75vh', md: '80vh' },
 };
 
 const collapsedSx = {
-  width: '100%',
-  height: { xs: '100px', md: '200px' },
+  height: '100px',
 };
 
 export default function ImageCarousel({ images, autoPlay = true, interval = 4000, sx, collapsed = false }: ImageCarouselProps) {
@@ -73,6 +50,7 @@ export default function ImageCarousel({ images, autoPlay = true, interval = 4000
   const mergedSx = { 
     ...baseSx, 
     ...sx, 
+    width: '100%',
     transition: 'height 0.8s cubic-bezier(0.4, 0, 0.2, 1), width 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
     willChange: 'height',
     overflow: 'hidden', // Prevent content overflow during transition
@@ -95,7 +73,7 @@ export default function ImageCarousel({ images, autoPlay = true, interval = 4000
         }}
         style={{
           width: '100%',
-          height: '100%',
+          height: '80vh',
         }}
         loop={normalizedSlides.length > 1}
       >
@@ -141,14 +119,12 @@ export default function ImageCarousel({ images, autoPlay = true, interval = 4000
                     transform: 'translate(-50%, -50%)',
                     width: '100%',
                     height: '100%',
-                    paddingTop: '50%',
+                    paddingTop: '25%',
                     textAlign: 'center',
                     color: 'white',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
                     backgroundColor: 'rgba(0, 0, 0, 0.3)',
                     zIndex: 2,
-                    transition: 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                    animation: collapsed ? 'fadeOut 0.3s ease-out forwards' : 'fadeIn 0.4s ease-in forwards',
                   }}
                 >
                   {slide.title && (
