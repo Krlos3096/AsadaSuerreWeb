@@ -86,7 +86,6 @@ export default function Gobernanza() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        my: { xs: 16, md: 32 },
         gap: 4,
       }}
     >

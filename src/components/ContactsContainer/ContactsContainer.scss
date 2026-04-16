@@ -5,7 +5,7 @@
 
   // Desktop version - vertical on right side
   @media (min-width: 769px) {
-    bottom: 20px;
+    top: 40%;
     right: 20px;
 
     .contacts-wrapper {
@@ -37,7 +37,7 @@
 
   // Mobile version - horizontal on bottom
   @media (max-width: 768px) {
-    bottom: 16px;
+    bottom: 8%;
     left: 50%;
     transform: translateX(-50%);
 

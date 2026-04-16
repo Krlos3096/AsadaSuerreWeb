@@ -9,14 +9,17 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
-import Typography from '@mui/material/Typography';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { ReactComponent as LogoAsada } from '../../assets/asada-suerre-logo.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
-import headerImageMd from '../../assets/header-md.JPG';
-import headerImageXs from '../../assets/header-xs.JPG';
+import ImageCarousel from '../ImageCarousel/ImageCarousel';
+// Import carousel images
+import IMG_3657 from '../../assets/news-images/IMG_3657.JPG';
+import IMG_3658 from '../../assets/news-images/IMG_3658.JPG';
+import IMG_3660 from '../../assets/news-images/IMG_3660.JPG';
+import IMG_3661 from '../../assets/news-images/IMG_3661.JPG';
+import IMG_3680 from '../../assets/news-images/IMG_3680.JPG';
 import './AppBar.scss';
+import { KeyboardArrowUp, Menu, CloseRounded } from '@mui/icons-material';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -39,7 +42,48 @@ export default function AppBarComponent() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Determine if carousel should be collapsed (not on base path)
+  const isCarouselCollapsed = location.pathname !== '/' && location.pathname !== '';
+
+  // Carousel images with text overlays
+  const carouselImages = [
+    {
+      image: IMG_3657,
+      title: "Servicio de Agua Potable",
+      subtitle: "Calidad garantizada para todos",
+      description: "Brindamos agua segura y confiable para toda la comunidad de Suerre"
+    },
+    {
+      image: IMG_3658,
+      title: "Mantenimiento Preventivo",
+      subtitle: "Cuidamos nuestra infraestructura",
+      description: "Trabajos continuos para mejorar y mantener el sistema de distribución"
+    },
+    {
+      image: IMG_3660,
+      title: "Calidad del Agua",
+      subtitle: "Análisis rigurosos diarios",
+      description: "Monitoreo constante para asegurar los más altos estándares de potabilidad"
+    },
+    {
+      image: IMG_3661,
+      title: "Comunidad Unida",
+      subtitle: "Trabajando juntos por el futuro",
+      description: "Participación activa de los vecinos en el cuidado del recurso hídrico"
+    },
+    {
+      image: IMG_3680,
+      title: "Innovación y Tecnología",
+      subtitle: "Modernizando nuestros sistemas",
+      description: "Implementando soluciones tecnológicas para un servicio más eficiente"
+    }
+  ];
+
   const toggleDrawer = (newOpen: boolean) => () => {
+    if(!isCarouselCollapsed) {
+      handleNavigation('/noticias');
+      return;
+    }
     setOpen(newOpen);
   };
 
@@ -75,19 +119,15 @@ export default function AppBarComponent() {
       }}
     >
       {/* Hero Section with Background Image */}
-      <Box
-        sx={{
-          position: "relative",
-          width: "100%",
-          height: { xs: "100px", md: "200px" },
-          backgroundImage: {
-            xs: `url(${headerImageXs})`,
-            md: `url(${headerImageMd})`,
-          },
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
+      <ImageCarousel 
+        images={carouselImages} 
+        autoPlay={true} 
+        interval={4000} 
+        collapsed={isCarouselCollapsed}
+        sx={{ 
+          position: 'relative',
+          zIndex: 0,
+        }} 
       />
       <Container maxWidth="lg">
         <StyledToolbar
@@ -113,12 +153,28 @@ export default function AppBarComponent() {
                 variant="text"
                 color="primary"
                 size="small"
-                onClick={() => handleNavigation("/noticias")}
+                onClick={() => handleNavigation("/")}
                 sx={{
-                  backgroundColor: isActive("/noticias") || isActive("/")
+                  backgroundColor: isActive("/")
                     ? "primary.dark"
                     : "transparent",
-                  color: isActive("/noticias") || isActive("/")
+                  color: isActive("/")
+                    ? "primary.contrastText"
+                    : "inherit",
+                }}
+              >
+                Inicio
+              </Button>
+              <Button
+                variant="text"
+                color="primary"
+                size="small"
+                onClick={() => handleNavigation("/noticias")}
+                sx={{
+                  backgroundColor: isActive("/noticias")
+                    ? "primary.dark"
+                    : "transparent",
+                  color: isActive("/noticias")
                     ? "primary.contrastText"
                     : "inherit",
                 }}
@@ -218,7 +274,7 @@ export default function AppBarComponent() {
               onClick={toggleDrawer(!open)}
               sx={{ border: "1px solid black" }}
             >
-              {open ? <CloseRoundedIcon /> : <MenuIcon />}
+              {!isCarouselCollapsed ? <KeyboardArrowUp /> : (open ? <CloseRounded /> : <Menu />)}
             </IconButton>
             <Drawer
               anchor="top"
@@ -239,6 +295,9 @@ export default function AppBarComponent() {
               }}
             >
               <Box sx={{ p: 2, backgroundColor: "background.default" }}>
+                <MenuItem onClick={() => handleNavigation("/")}>
+                  Inicio
+                </MenuItem>
                 <MenuItem onClick={() => handleNavigation("/noticias")}>
                   Noticias
                 </MenuItem>

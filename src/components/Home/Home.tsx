@@ -15,7 +15,7 @@ export default function Home(props: { disableCustomTheme?: boolean }) {
       <Container
         maxWidth="lg"
         component="main"
-        sx={{ display: 'flex', flexDirection: 'column', my: { xs: 16, md: 32 }, gap: 4 }}
+        sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}
       >
         <Noticias />
       </Container>

@@ -68,57 +68,56 @@ export default function Contactos() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        my: { xs: 16, md: 32 },
         gap: 4,
       }}
     >
-      {/* Map Section */}
-      <Paper 
-        elevation={3} 
-        sx={{ 
-          p: 2, 
-          backgroundColor: 'grey.50',
-          border: '1px solid',
-          borderColor: 'divider',
-          borderRadius: 2
-        }}
-      >
-        <Box
-          sx={{
-            width: '100%',
-            height: '25%',
-            borderRadius: 2,
-            overflow: 'hidden',
-            border: '1px solid',
-            borderColor: 'divider',
-            backgroundColor: 'white'
-          }}
-        >
-          <iframe
-            src={mapsEmbedUrl}
-            style={{
-              width: '100%',
-              height: '100%',
-              border: 'none',
-              borderRadius: '8px'
-            }}
-            title="Ubicación de Acueducto Rural Suerre"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </Box>
-        <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center', display: 'block', mt: 2 }}>
-          Visítanos en nuestra ubicación en Suerre, Guácimo, Limón
-        </Typography>
-      </Paper>
       <Grid container spacing={4}>
+        <Grid key="ubicacion" size={{ xs: 12, md: 6, lg: 4 }}>
+          {/* Map Section */}
+          <Paper
+            elevation={3}
+            sx={{
+              p: 2,
+              backgroundColor: "grey.50",
+              border: "1px solid",
+              borderColor: "divider",
+              borderRadius: 2,
+            }}
+          >
+            <Box
+              sx={{
+                borderRadius: 2,
+                overflow: "hidden",
+                border: "1px solid",
+                borderColor: "divider",
+                backgroundColor: "white",
+              }}
+            >
+              <iframe
+                src={mapsEmbedUrl}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                  borderRadius: "8px",
+                }}
+                title="Ubicación de Acueducto Rural Suerre"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </Box>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ textAlign: "center", display: "block", mt: 2 }}
+            >
+              Visítanos en nuestra ubicación en Suerre, Jiménez, Pococí, Limón
+            </Typography>
+          </Paper>
+        </Grid>
         {contactCards.map((contact) => (
           <Grid key={contact.id} size={{ xs: 12, md: 6, lg: 4 }}>
-            <GenericCard
-              data={contact}
-              variant="contact"
-            />
+            <GenericCard data={contact} variant="contact" />
           </Grid>
         ))}
       </Grid>
