@@ -9,6 +9,9 @@ export { default as ScrollToTop } from './ScrollToTop/ScrollToTop';
 export { default as GenericCard } from './GenericCard/GenericCard';
 export { default as Search } from './Search/Search';
 export { default as ImageCarousel } from './ImageCarousel/ImageCarousel';
+export { default as FullScreenDialog } from './FullScreenDialog/FullScreenDialog';
+export { default as GlobalDialog } from './FullScreenDialog/GlobalDialog';
+export { useDialog, DialogProvider } from '../context/DialogContext';
 
 // Section components for routing
 export { default as Noticias } from './Noticias/Noticias';

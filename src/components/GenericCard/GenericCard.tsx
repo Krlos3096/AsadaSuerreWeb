@@ -19,6 +19,7 @@ export interface GenericCardData {
   id: string;
   title: string;
   description?: string;
+  longDescription?: string;
   image?: string;
   subtitle?: string;
   tag?: string;

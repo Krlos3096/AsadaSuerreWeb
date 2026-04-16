@@ -13,6 +13,7 @@ import {
   ContactsContainer,
   ScrollToTop
 } from './components';
+import GlobalDialog from './components/FullScreenDialog/GlobalDialog';
 import './App.css';
 
 function AppContent() {
@@ -40,5 +41,9 @@ function AppContent() {
 }
 
 export default function App() {
-  return <AppContent />;
+  return (
+    <GlobalDialog>
+      <AppContent />
+    </GlobalDialog>
+  );
 }

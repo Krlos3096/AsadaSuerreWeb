@@ -6,6 +6,7 @@ import newsData from '../../assets/news-data.json';
 import GenericCard from '../GenericCard/GenericCard';
 import { GenericCardData } from '../GenericCard/GenericCard';
 import Search from '../Search/Search';
+import { useDialog } from '../index';
 // Import images directly
 import IMG_3657 from '../../assets/news-images/IMG_3657.JPG';
 import IMG_3658 from '../../assets/news-images/IMG_3658.JPG';
@@ -23,6 +24,7 @@ export default function Noticias() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState('Todo');
   const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(null);
+  const { openDialog } = useDialog();
 
   const categories = React.useMemo(() => {
     const uniqueTags = Array.from(new Set(newsData.map(item => item.tag)));
@@ -60,6 +62,30 @@ export default function Noticias() {
     setFocusedCardIndex(null);
   };
 
+  const handleCardClick = (news: GenericCardData) => {
+    openDialog({
+      title: news.title,
+      image: news.image,
+      content: (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+            {news.tag && (
+              <Chip label={news.tag} size="small" variant="outlined" />
+            )}
+            {news.authors && news.authors.map((author, idx) => (
+              <Chip key={idx} label={author.name} size="small" variant="outlined" />
+            ))}
+          </Box>
+          <Box sx={{ typography: 'body1', lineHeight: 1.8 }}>
+            {news.longDescription}
+          </Box>
+        </Box>
+      ),
+      maxWidth: 'lg',
+      fullWidth: true
+    });
+  };
+
   // Image mapping object
   const imageMap: { [key: string]: string } = {
     './news-images/IMG_3657.JPG': IMG_3657,
@@ -79,6 +105,7 @@ export default function Noticias() {
     id: index.toString(),
     title: news.title,
     description: news.description,
+    longDescription: news.longDescription,
     image: imageMap[news.img] || news.img, // Use mapped image or fallback to original
     tag: news.tag,
     authors: news.authors
@@ -172,6 +199,7 @@ export default function Noticias() {
               focused={focusedCardIndex === index}
               onFocus={handleFocus}
               onBlur={handleBlur}
+              onClick={() => handleCardClick(news)}
               tabIndex={0}
               size="large"
             />
