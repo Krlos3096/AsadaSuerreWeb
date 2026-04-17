@@ -36,14 +36,14 @@ const ContactsContainer: React.FC<ContactsContainerProps> = ({
         <ContactFloat
           icon={<WhatsAppIcon />}
           link={`https://wa.me/${whatsappPhoneInfo.replace(/[^\d]/g, "")}`}
-          tooltipTitle="WhatsApp Averias"
-          ariaLabel="WhatsApp Averias"
+          tooltipTitle="WhatsApp Gestiones"
+          ariaLabel="WhatsApp Gestiones"
         />
         <ContactFloat
           icon={<BuildIcon />}
           link={`https://wa.me/${whatsappPhoneSupport.replace(/[^\d]/g, "")}`}
-          tooltipTitle="WhatsApp Gestiones"
-          ariaLabel="WhatsApp Gestiones"
+          tooltipTitle="WhatsApp Averias"
+          ariaLabel="WhatsApp Averias"
         />
         <ContactFloat
           icon={<FacebookIcon />}

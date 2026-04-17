@@ -1,5 +1,6 @@
 [
   {
+    "id": "timeline-1",
     "year": "1995",
     "title": "Fundación",
     "description": "La ASADA Suerre fue fundada por un grupo de vecinos comprometidos con llevar agua potable a la comunidad.",
@@ -7,6 +8,7 @@
     "image": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800"
   },
   {
+    "id": "timeline-2",
     "year": "1998",
     "title": "Primera Conexión",
     "description": "Se realizan las primeras 50 conexiones domiciliares, marcando el inicio del servicio formal.",
@@ -14,6 +16,7 @@
     "image": "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800"
   },
   {
+    "id": "timeline-3",
     "year": "2005",
     "title": "Expansión",
     "description": "Se amplía la red de distribución para cubrir 200 hogares adicionales en zonas aledañas.",
@@ -21,6 +24,7 @@
     "image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800"
   },
   {
+    "id": "timeline-4",
     "year": "2012",
     "title": "Modernización",
     "description": "Se implementan nuevos sistemas de tratamiento y purificación del agua.",
@@ -28,6 +32,7 @@
     "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800"
   },
   {
+    "id": "timeline-5",
     "year": "2020",
     "title": "Digitalización",
     "description": "Se lanza el sistema de facturación en línea y portal web para mejorar el servicio.",
@@ -35,6 +40,7 @@
     "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800"
   },
   {
+    "id": "timeline-6",
     "year": "2024",
     "title": "Sostenibilidad",
     "description": "Se implementan proyectos de energía solar y protección de fuentes de agua.",

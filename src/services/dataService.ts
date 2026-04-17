@@ -21,7 +21,7 @@ export const DataService = {
   getMission: () => usData.mission,
   getVision: () => usData.vision,
   
-  getCarouselImages: () => homeData.carouselImages,
+  getCarouselImages: () => homeData,
   
   getWhatsAppPhoneInfo: () => contactsData.whatsappPhoneInfo,
   getWhatsAppPhoneSupport: () => contactsData.whatsappPhoneSupport,
