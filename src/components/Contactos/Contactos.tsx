@@ -2,11 +2,11 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import GenericCard from '../GenericCard/GenericCard';
-import cardsData from '../../assets/cards-data.json';
+import { DataService } from '../../services/dataService';
 import './Contactos.scss';
 
 export default function Contactos() {
-  const contactosData = cardsData.filter((item: any) => item.variant === 'contact');
+  const contactosData = DataService.getContactData();
 
   return (
     <Container

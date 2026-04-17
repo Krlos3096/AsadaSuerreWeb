@@ -13,14 +13,14 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
-import usData from '../../assets/us-data.json';
-import timelineData from '../../assets/time-items-data.json';
+import { DataService } from '../../services/dataService';
 import { iconMap } from '../GenericCard/GenericCard';
 import './NuestraHistoria.scss';
 
-const statsData = usData.statsData;
-const mission = usData.mission;
-const vision = usData.vision;
+const timelineData = DataService.getTimeItemsData();
+const statsData = DataService.getStatsData();
+const mission = DataService.getMission();
+const vision = DataService.getVision();
 
 // Hook for number animation
 const useNumberAnimation = (end: string | number, duration: number = 1000) => {

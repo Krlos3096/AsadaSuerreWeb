@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import { Box, Container } from '@mui/material';
 import Chip from '@mui/material/Chip';
-import cardsData from '../../assets/cards-data.json';
+import { DataService } from '../../services/dataService';
 import GenericCard from '../GenericCard/GenericCard';
 import { GenericCardData } from '../GenericCard/GenericCard';
 import Search from '../Search/Search';
@@ -25,6 +25,7 @@ export default function Noticias() {
   const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(null);
 
   const categories = React.useMemo(() => {
+    const cardsData = DataService.getCardsData();
     const newsItems = cardsData.filter((item: any) => item.variant === 'news');
     const uniqueTags = Array.from(new Set(newsItems.map((item: any) => item.tag)));
     return ['Todo', ...uniqueTags];
@@ -62,6 +63,7 @@ export default function Noticias() {
 
   // Filter for news variant and apply category/search filters
   const filteredNews = React.useMemo(() => {
+    const cardsData = DataService.getCardsData();
     let filtered = cardsData.filter((item: any) => item.variant === 'news');
     if (selectedCategory !== 'Todo') {
       filtered = filtered.filter((item: any) => item.tag === selectedCategory);

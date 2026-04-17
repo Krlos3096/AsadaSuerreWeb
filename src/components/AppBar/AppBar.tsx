@@ -12,7 +12,7 @@ import Drawer from '@mui/material/Drawer';
 import { ReactComponent as LogoAsada } from '../../assets/asada-suerre-logo.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
-import homeData from '../../assets/home-data.json';
+import { DataService } from '../../services/dataService';
 // Import carousel images for mapping
 import IMG_3657 from '../../assets/news-images/IMG_3657.JPG';
 import IMG_3658 from '../../assets/news-images/IMG_3658.JPG';
@@ -56,7 +56,7 @@ export default function AppBarComponent() {
   };
 
   // Transform carousel images from JSON
-  const carouselImages = homeData.carouselImages.map((item: any) => ({
+  const carouselImages = DataService.getCarouselImages().map((item: any) => ({
     image: imageMap[item.image] || item.image,
     title: item.title,
     subtitle: item.subtitle,

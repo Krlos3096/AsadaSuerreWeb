@@ -2,11 +2,11 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import GenericCard from '../GenericCard/GenericCard';
-import cardsData from '../../assets/cards-data.json';
+import { DataService } from '../../services/dataService';
 import './Gobernanza.scss';
 
 export default function Gobernanza() {
-  const gobernanzaData = cardsData.filter((item: any) => item.variant === 'governance');
+  const gobernanzaData = DataService.getGovernanceData();
 
   return (
     <Container
