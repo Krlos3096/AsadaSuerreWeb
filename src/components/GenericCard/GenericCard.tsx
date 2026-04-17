@@ -135,7 +135,7 @@ const Author: React.FC<{ authors: { name: string; avatar: string }[] }> = ({ aut
 };
 
 // Icon mapping for string-based icon names
-const iconMap: { [key: string]: React.ReactNode } = {
+export const iconMap: { [key: string]: React.ReactNode } = {
   Groups: <GroupsIcon />,
   Gavel: <GavelIcon />,
   AccountBalance: <AccountBalanceIcon />,
@@ -295,6 +295,7 @@ const GenericCard: React.FC<GenericCardProps> = ({
     openDialog({
       title: data.title,
       image: data.image,
+      icon: data.icon,
       content: getDialogContent(),
       maxWidth: 'lg',
       fullWidth: true

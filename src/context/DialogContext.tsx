@@ -7,6 +7,7 @@ export interface DialogConfig {
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
   fullWidth?: boolean;
   image?: string;
+  icon?: string;
 }
 
 interface DialogContextType {

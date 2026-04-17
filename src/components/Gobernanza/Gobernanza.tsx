@@ -2,10 +2,12 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import GenericCard from '../GenericCard/GenericCard';
-import gobernanzaData from '../../assets/gobernanza-data.json';
+import cardsData from '../../assets/cards-data.json';
 import './Gobernanza.scss';
 
 export default function Gobernanza() {
+  const gobernanzaData = cardsData.filter((item: any) => item.variant === 'governance');
+
   return (
     <Container
       maxWidth="lg"
@@ -17,7 +19,7 @@ export default function Gobernanza() {
       }}
     >
       <Grid container spacing={4}>
-        {gobernanzaData.map((item) => (
+        {gobernanzaData.map((item: any) => (
           <Grid key={item.id} size={{ xs: 12, md: 3 }}>
             <GenericCard
               data={item}

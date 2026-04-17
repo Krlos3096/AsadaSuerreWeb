@@ -13,53 +13,70 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import usData from '../../assets/us-data.json';
+import timelineData from '../../assets/time-items-data.json';
+import { iconMap } from '../GenericCard/GenericCard';
 import './NuestraHistoria.scss';
 
-const timelineData = [
-  {
-    year: '1995',
-    title: 'Fundación',
-    description: 'La ASADA Suerre fue fundada por un grupo de vecinos comprometidos con llevar agua potable a la comunidad.',
-    icon: WaterDropIcon
-  },
-  {
-    year: '1998',
-    title: 'Primera Conexión',
-    description: 'Se realizan las primeras 50 conexiones domiciliares, marcando el inicio del servicio formal.',
-    icon: WaterDropIcon
-  },
-  {
-    year: '2005',
-    title: 'Expansión',
-    description: 'Se amplía la red de distribución para cubrir 200 hogares adicionales en zonas aledañas.',
-    icon: WaterDropIcon
-  },
-  {
-    year: '2012',
-    title: 'Modernización',
-    description: 'Se implementan nuevos sistemas de tratamiento y purificación del agua.',
-    icon: WaterDropIcon
-  },
-  {
-    year: '2020',
-    title: 'Digitalización',
-    description: 'Se lanza el sistema de facturación en línea y portal web para mejorar el servicio.',
-    icon: WaterDropIcon
-  },
-  {
-    year: '2024',
-    title: 'Sostenibilidad',
-    description: 'Se implementan proyectos de energía solar y protección de fuentes de agua.',
-    icon: WaterDropIcon
-  }
-];
+const statsData = usData.statsData;
+const mission = usData.mission;
+const vision = usData.vision;
 
-const statsData = [
-  { number: '2,500+', label: 'Usuarios Conectados' },
-  { number: '29', label: 'Años de Servicio' },
-  { number: '15', label: 'Kilómetros de Red' },
-  { number: '99.5%', label: 'Calidad del Agua' }
-];
+// Hook for number animation
+const useNumberAnimation = (end: string | number, duration: number = 1000) => {
+  const [count, setCount] = React.useState(0);
+
+  // Extract numeric value from string like "2,500+" or "99.5%"
+  const parseEndValue = (value: string | number): number => {
+    if (typeof value === 'number') return value;
+    const parsed = parseFloat(value.replace(/[^0-9.]/g, ''));
+    return isNaN(parsed) ? 0 : parsed;
+  };
+
+  // Format the number back to the original format
+  const formatNumber = (value: number, original: string | number): string => {
+    if (typeof original === 'number') return value.toString();
+    const hasPercent = original.toString().includes('%');
+    const hasPlus = original.toString().includes('+');
+    
+    let formatted = value.toLocaleString('en-US', { maximumFractionDigits: 1 });
+    if (hasPercent) formatted += '%';
+    if (hasPlus) formatted += '+';
+    return formatted;
+  };
+
+  const endValue = parseEndValue(end);
+
+  React.useEffect(() => {
+    let startTime: number;
+    let animationFrame: number;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      
+      // Easing function for smoother animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = endValue * easeOutQuart;
+      
+      setCount(currentCount);
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [endValue, duration]);
+
+  return formatNumber(count, end);
+};
 
 export default function NuestraHistoria() {
   return (
@@ -74,29 +91,32 @@ export default function NuestraHistoria() {
     >
       {/* Statistics Section */}
       <Grid container spacing={3} sx={{ mb: 6 }}>
-        {statsData.map((stat, index) => (
-          <Grid key={index} size={{ xs: 6, md: 3 }}>
-            <Card className="stat-card" sx={{ textAlign: "center", py: 3 }}>
-              <CardContent>
-                <Typography
-                  variant="h3"
-                  component="div"
-                  className="stat-number"
-                  sx={{ fontWeight: "bold", color: "primary.main" }}
-                >
-                  {stat.number}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  className="stat-label"
-                >
-                  {stat.label}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
+        {statsData.map((stat, index) => {
+          const animatedNumber = useNumberAnimation(stat.number);
+          return (
+            <Grid key={index} size={{ xs: 6, md: 3 }}>
+              <Card className="stat-card" sx={{ textAlign: "center", py: 3 }}>
+                <CardContent>
+                  <Typography
+                    variant="h3"
+                    component="div"
+                    className="stat-number"
+                    sx={{ fontWeight: "bold", color: "primary.main" }}
+                  >
+                    {animatedNumber}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    className="stat-label"
+                  >
+                    {stat.label}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          );
+        })}
       </Grid>
 
       {/* Timeline Section */}
@@ -109,17 +129,31 @@ export default function NuestraHistoria() {
           Hitos Importantes
         </Typography>
         <Timeline position="alternate">
-          {timelineData.map((item, index) => (
+          {timelineData.map((item: any, index) => (
             <TimelineItem key={index}>
               <TimelineSeparator>
                 <TimelineConnector />
                 <TimelineDot color="primary" className="timeline-dot">
-                  <item.icon />
+                  {item.icon && iconMap[item.icon] || <WaterDropIcon />}
                 </TimelineDot>
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent sx={{ py: "12px", px: 2 }}>
                 <Paper elevation={1} sx={{ p: 2, backgroundColor: "grey.50" }}>
+                  {item.image && (
+                    <Box
+                      component="img"
+                      src={item.image}
+                      alt={item.title}
+                      sx={{
+                        width: '100%',
+                        height: '150px',
+                        objectFit: 'cover',
+                        borderRadius: 1,
+                        mb: 2
+                      }}
+                    />
+                  )}
                   <Typography
                     variant="caption"
                     color="primary"
@@ -154,13 +188,10 @@ export default function NuestraHistoria() {
                 gutterBottom
                 sx={{ color: "primary.main", textAlign: "center" }}
               >
-                Misión
+                {mission.title}
               </Typography>
               <Typography variant="body1" paragraph>
-                Proporcionar agua potable de calidad a todos los habitantes de
-                la comunidad de Suerre, garantizando un servicio eficiente,
-                sostenible y a precios accesibles, contribuyendo al mejoramiento
-                de la calidad de vida de nuestros usuarios.
+                {mission.content}
               </Typography>
             </CardContent>
           </Card>
@@ -173,13 +204,10 @@ export default function NuestraHistoria() {
                 gutterBottom
                 sx={{ color: "primary.main", textAlign: "center" }}
               >
-                Visión
+                {vision.title}
               </Typography>
               <Typography variant="body1" paragraph>
-                Ser una ASADA modelo en la gestión sostenible del recurso
-                hídrico, reconocida por su excelencia en el servicio, su
-                compromiso con el medio ambiente y su contribución al desarrollo
-                comunitario.
+                {vision.content}
               </Typography>
             </CardContent>
           </Card>

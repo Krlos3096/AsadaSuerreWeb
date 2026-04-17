@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { TransitionProps } from '@mui/material/transitions';
+import { iconMap } from '../GenericCard/GenericCard';
 
 export interface FullScreenDialogProps {
   open: boolean;
@@ -25,6 +26,7 @@ export interface FullScreenDialogProps {
   fullWidth?: boolean;
   sx?: SxProps<Theme>;
   image?: string;
+  icon?: string;
 }
 
 const FullScreenDialog: React.FC<FullScreenDialogProps> = ({
@@ -36,7 +38,8 @@ const FullScreenDialog: React.FC<FullScreenDialogProps> = ({
   maxWidth = 'lg',
   fullWidth = true,
   sx,
-  image
+  image,
+  icon
 }) => {
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('sm'));
@@ -78,7 +81,7 @@ const FullScreenDialog: React.FC<FullScreenDialogProps> = ({
             p: 2,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             backgroundColor: '#04A6DB',
             color: 'primary.contrastText',
             border: "1px solid black",
@@ -87,14 +90,19 @@ const FullScreenDialog: React.FC<FullScreenDialogProps> = ({
             zIndex: 1
           }}
         >
-          <Box sx={{ fontSize: '1.25rem', fontWeight: 600 }}>
+          <Box sx={{ fontSize: '1.25rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 1 }}>
             {title}
+            {icon && (
+              <Box sx={{ fontSize: '1.5rem' }}>
+                {iconMap[icon] || null}
+              </Box>
+            )}
           </Box>
           <IconButton
             edge="end"
             onClick={onClose}
             aria-label="close"
-            sx={{ color: 'primary.contrastText' }}
+            sx={{ color: 'primary.contrastText', position: 'absolute', right: 8 }}
           >
             <CloseIcon />
           </IconButton>

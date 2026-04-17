@@ -12,7 +12,8 @@ import Drawer from '@mui/material/Drawer';
 import { ReactComponent as LogoAsada } from '../../assets/asada-suerre-logo.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
-// Import carousel images
+import homeData from '../../assets/home-data.json';
+// Import carousel images for mapping
 import IMG_3657 from '../../assets/news-images/IMG_3657.JPG';
 import IMG_3658 from '../../assets/news-images/IMG_3658.JPG';
 import IMG_3660 from '../../assets/news-images/IMG_3660.JPG';
@@ -45,39 +46,22 @@ export default function AppBarComponent() {
   // Determine if carousel should be collapsed (not on base path)
   const isCarouselCollapsed = location.pathname !== '/' && location.pathname !== '';
 
-  // Carousel images with text overlays
-  const carouselImages = [
-    {
-      image: IMG_3657,
-      title: "Servicio de Agua Potable",
-      subtitle: "Calidad garantizada para todos",
-      description: "Brindamos agua segura y confiable para toda la comunidad de Suerre"
-    },
-    {
-      image: IMG_3658,
-      title: "Mantenimiento Preventivo",
-      subtitle: "Cuidamos nuestra infraestructura",
-      description: "Trabajos continuos para mejorar y mantener el sistema de distribución"
-    },
-    {
-      image: IMG_3660,
-      title: "Calidad del Agua",
-      subtitle: "Análisis rigurosos diarios",
-      description: "Monitoreo constante para asegurar los más altos estándares de potabilidad"
-    },
-    {
-      image: IMG_3661,
-      title: "Comunidad Unida",
-      subtitle: "Trabajando juntos por el futuro",
-      description: "Participación activa de los vecinos en el cuidado del recurso hídrico"
-    },
-    {
-      image: IMG_3680,
-      title: "Innovación y Tecnología",
-      subtitle: "Modernizando nuestros sistemas",
-      description: "Implementando soluciones tecnológicas para un servicio más eficiente"
-    }
-  ];
+  // Image mapping object
+  const imageMap: { [key: string]: string } = {
+    './news-images/IMG_3657.JPG': IMG_3657,
+    './news-images/IMG_3658.JPG': IMG_3658,
+    './news-images/IMG_3660.JPG': IMG_3660,
+    './news-images/IMG_3661.JPG': IMG_3661,
+    './news-images/IMG_3680.JPG': IMG_3680,
+  };
+
+  // Transform carousel images from JSON
+  const carouselImages = homeData.carouselImages.map((item: any) => ({
+    image: imageMap[item.image] || item.image,
+    title: item.title,
+    subtitle: item.subtitle,
+    description: item.description
+  }));
 
   const toggleDrawer = (newOpen: boolean) => () => {
     if(!isCarouselCollapsed) {

@@ -6,6 +6,7 @@ import BuildIcon from '@mui/icons-material/BuildCircle';
 import ContactFloat from '../ContactFloat/ContactFloat';
 import './ContactsContainer.scss';
 import { useLocation } from 'react-router-dom';
+import contactsData from '../../assets/contacts-data.json';
 
 interface ContactsContainerProps {
   whatsappPhoneInfo?: string;
@@ -14,9 +15,9 @@ interface ContactsContainerProps {
 }
 
 const ContactsContainer: React.FC<ContactsContainerProps> = ({
-  whatsappPhoneInfo = '+50685676443',
-  whatsappPhoneSupport = '+50684479692',
-  facebookUrl = 'https://es-la.facebook.com/acueductosuerre#'
+  whatsappPhoneInfo = contactsData.whatsappPhoneInfo,
+  whatsappPhoneSupport = contactsData.whatsappPhoneSupport,
+  facebookUrl = contactsData.facebookUrl
 }) => {
 
   const location = useLocation();

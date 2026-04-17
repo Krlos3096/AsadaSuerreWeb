@@ -16,6 +16,7 @@ const GlobalDialogContent: React.FC = () => {
       maxWidth={dialogConfig.maxWidth}
       fullWidth={dialogConfig.fullWidth}
       image={dialogConfig.image}
+      icon={dialogConfig.icon}
     >
       {dialogConfig.content}
     </FullScreenDialog>

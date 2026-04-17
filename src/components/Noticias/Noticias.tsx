@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import { Box, Container } from '@mui/material';
 import Chip from '@mui/material/Chip';
-import newsData from '../../assets/news-data.json';
+import cardsData from '../../assets/cards-data.json';
 import GenericCard from '../GenericCard/GenericCard';
 import { GenericCardData } from '../GenericCard/GenericCard';
 import Search from '../Search/Search';
@@ -25,24 +25,10 @@ export default function Noticias() {
   const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(null);
 
   const categories = React.useMemo(() => {
-    const uniqueTags = Array.from(new Set(newsData.map(item => item.tag)));
+    const newsItems = cardsData.filter((item: any) => item.variant === 'news');
+    const uniqueTags = Array.from(new Set(newsItems.map((item: any) => item.tag)));
     return ['Todo', ...uniqueTags];
   }, []);
-
-  const filteredNews = React.useMemo(() => {
-    let filtered = newsData;
-    if (selectedCategory !== 'Todo') {
-      filtered = filtered.filter(item => item.tag === selectedCategory);
-    }
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase().trim();
-      filtered = filtered.filter(item => 
-        item.title.toLowerCase().includes(query) ||
-        item.description.toLowerCase().includes(query)
-      );
-    }
-    return filtered;
-  }, [selectedCategory, searchQuery]);
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
@@ -74,13 +60,29 @@ export default function Noticias() {
     './news-images/IMG_3723.JPG': IMG_3723,
   };
 
+  // Filter for news variant and apply category/search filters
+  const filteredNews = React.useMemo(() => {
+    let filtered = cardsData.filter((item: any) => item.variant === 'news');
+    if (selectedCategory !== 'Todo') {
+      filtered = filtered.filter((item: any) => item.tag === selectedCategory);
+    }
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter((item: any) => 
+        item.title.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query)
+      );
+    }
+    return filtered;
+  }, [selectedCategory, searchQuery]);
+
   // Transform news data to GenericCard format
-  const transformedNews: GenericCardData[] = filteredNews.map((news) => ({
+  const transformedNews: GenericCardData[] = filteredNews.map((news: any) => ({
     id: news.id,
     title: news.title,
     description: news.description,
     date: news.date,
-    image: imageMap[news.img] || news.img, // Use mapped image or fallback to original
+    image: imageMap[news.image] || news.image,
     tag: news.tag,
     authors: news.authors,
     variant: news.variant as 'news' | 'default' | 'service' | 'governance' | 'contact'

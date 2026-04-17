@@ -2,10 +2,12 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import GenericCard from '../GenericCard/GenericCard';
-import gestionesData from '../../assets/gestiones-data.json';
+import cardsData from '../../assets/cards-data.json';
 import './Gestiones.scss';
 
 export default function Gestiones() {
+  const gestionesData = cardsData.filter((item: any) => item.variant === 'service');
+
   return (
     <Container
       maxWidth="lg"
@@ -17,7 +19,7 @@ export default function Gestiones() {
       }}
     >
       <Grid container spacing={4}>
-        {gestionesData.map((gestion) => (
+        {gestionesData.map((gestion: any) => (
           <Grid key={gestion.id} size={{ xs: 12, md: 3 }}>
             <GenericCard
               data={gestion}
