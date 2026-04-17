@@ -1,0 +1,228 @@
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module compatible __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Configuration
+const DATA_DIR = path.join(__dirname, '..', 'src', 'assets', 'data');
+const API_URL = 'http://localhost:8787';
+
+interface Card {
+  title: string;
+  description: string;
+  date?: string;
+  image?: string;
+  subtitle?: string;
+  tag?: string;
+  badge?: string;
+  authors?: Array<{ name: string; avatar: string }>;
+  icon?: string;
+  items?: string[];
+  url?: string;
+  googleMapsUrl?: string;
+  variant: string;
+}
+
+interface Contacts {
+  whatsappPhoneInfo?: string;
+  whatsappPhoneSupport?: string;
+  facebookUrl?: string;
+}
+
+interface HomeSlide {
+  image: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+}
+
+interface TimelineItem {
+  year: string;
+  title: string;
+  description: string;
+  icon?: string;
+  image?: string;
+}
+
+interface StatsData {
+  number: string;
+  label: string;
+}
+
+interface UsData {
+  statsData?: StatsData[];
+  mission?: { title: string; content: string };
+  vision?: { title: string; content: string };
+}
+
+// Helper function to make API requests
+async function apiRequest(endpoint: string, options: RequestInit): Promise<any> {
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+    ...options,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || `Request failed: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+// Read JSON file
+function readJsonFile<T>(filename: string): T {
+  const filePath = path.join(DATA_DIR, filename);
+  const content = fs.readFileSync(filePath, 'utf-8');
+  return JSON.parse(content);
+}
+
+// Migrate cards
+async function migrateCards(cards: Card[]): Promise<void> {
+  for (const card of cards) {
+    try {
+      await apiRequest('/cards', {
+        method: 'POST',
+        body: JSON.stringify(card),
+      });
+      console.log(`✓ Inserted card: ${card.title}`);
+    } catch (error: any) {
+      console.error(`✗ Failed to insert card (${card.title}): ${error.message}`);
+    }
+  }
+}
+
+// Migrate contacts
+async function migrateContacts(contacts: Contacts): Promise<void> {
+  try {
+    await apiRequest('/contacts', {
+      method: 'PUT',
+      body: JSON.stringify(contacts),
+    });
+    console.log('✓ Inserted contacts');
+  } catch (error: any) {
+    console.error(`✗ Failed to insert contacts: ${error.message}`);
+  }
+}
+
+// Migrate home slides
+async function migrateHomeSlides(slides: HomeSlide[]): Promise<void> {
+  for (const slide of slides) {
+    try {
+      await apiRequest('/home-slides', {
+        method: 'POST',
+        body: JSON.stringify(slide),
+      });
+      console.log(`✓ Inserted home slide: ${slide.title}`);
+    } catch (error: any) {
+      console.error(`✗ Failed to insert home slide (${slide.title}): ${error.message}`);
+    }
+  }
+}
+
+// Migrate timeline items
+async function migrateTimelineItems(items: TimelineItem[]): Promise<void> {
+  for (const item of items) {
+    try {
+      await apiRequest('/timeline', {
+        method: 'POST',
+        body: JSON.stringify(item),
+      });
+      console.log(`✓ Inserted timeline item: ${item.year} - ${item.title}`);
+    } catch (error: any) {
+      console.error(`✗ Failed to insert timeline item (${item.year} - ${item.title}): ${error.message}`);
+    }
+  }
+}
+
+// Migrate stats
+async function migrateStats(stats: StatsData[]): Promise<void> {
+  try {
+    await apiRequest('/stats', {
+      method: 'PUT',
+      body: JSON.stringify(stats),
+    });
+    console.log('✓ Inserted stats');
+  } catch (error: any) {
+    console.error(`✗ Failed to insert stats: ${error.message}`);
+  }
+}
+
+// Migrate about content
+async function migrateAboutContent(usData: UsData): Promise<void> {
+  if (usData.mission) {
+    try {
+      await apiRequest('/about/mission', {
+        method: 'PUT',
+        body: JSON.stringify(usData.mission),
+      });
+      console.log('✓ Inserted mission');
+    } catch (error: any) {
+      console.error(`✗ Failed to insert mission: ${error.message}`);
+    }
+  }
+
+  if (usData.vision) {
+    try {
+      await apiRequest('/about/vision', {
+        method: 'PUT',
+        body: JSON.stringify(usData.vision),
+      });
+      console.log('✓ Inserted vision');
+    } catch (error: any) {
+      console.error(`✗ Failed to insert vision: ${error.message}`);
+    }
+  }
+}
+
+// Main migration function
+export async function runMigrations(): Promise<void> {
+  console.log('Starting migration to D1...\n');
+
+  // Read all JSON files
+  const cards = readJsonFile<Card[]>('cards-data.json');
+  const contacts = readJsonFile<Contacts>('contacts-data.json');
+  const homeSlides = readJsonFile<HomeSlide[]>('home-data.json');
+  const timelineItems = readJsonFile<TimelineItem[]>('time-items-data.json');
+  const usData = readJsonFile<UsData>('us-data.json');
+
+  console.log('✓ JSON files loaded\n');
+
+  // Migrate data
+  console.log('Migrating cards...');
+  await migrateCards(cards);
+  console.log();
+
+  console.log('Migrating contacts...');
+  await migrateContacts(contacts);
+  console.log();
+
+  console.log('Migrating home slides...');
+  await migrateHomeSlides(homeSlides);
+  console.log();
+
+  console.log('Migrating timeline items...');
+  await migrateTimelineItems(timelineItems);
+  console.log();
+
+  if (usData.statsData) {
+    console.log('Migrating stats...');
+    await migrateStats(usData.statsData);
+    console.log();
+  }
+
+  console.log('Migrating about content...');
+  await migrateAboutContent(usData);
+  console.log();
+
+  console.log('\n✓ Migration complete!');
+}
+
+// Run migrations
+runMigrations().catch(console.error);

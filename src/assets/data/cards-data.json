@@ -1,6 +1,5 @@
 [
   {
-    "id": "news-a7f3b2d1",
     "title": "Corte programado de agua en sector norte",
     "description": "Informamos a todos los vecinos del sector norte que se estará realizando una suspensión temporal del servicio de agua potable debido a trabajos programados de mantenimiento y mejora en la red principal de distribución. Estas labores son necesarias para garantizar la continuidad y calidad del servicio a mediano y largo plazo, así como para prevenir averías futuras. Recomendamos tomar las previsiones necesarias almacenando agua para las actividades esenciales del hogar durante el periodo indicado. Agradecemos profundamente su comprensión y colaboración mientras nuestro equipo técnico realiza estas mejoras.",
     "date": "10 de abril de 2026",
@@ -16,7 +15,6 @@
     "variant": "news"
   },
   {
-    "id": "news-c8e4d3a2",
     "title": "Restablecimiento del servicio tras avería",
     "description": "Les informamos que el servicio de agua potable ha sido restablecido satisfactoriamente luego de que nuestro equipo técnico completara la reparación de una fuga significativa detectada en la línea principal de abastecimiento. Durante la intervención se realizaron inspecciones adicionales para verificar la estabilidad de la red y prevenir incidentes similares. Agradecemos la paciencia y comprensión mostrada por la comunidad durante el tiempo que duró la afectación del servicio.",
     "date": "8 de abril de 2026",
@@ -32,7 +30,6 @@
     "variant": "news"
   },
   {
-    "id": "news-d9f5e4b3",
     "title": "Limpieza anual de tanques de almacenamiento",
     "description": "Como parte de nuestro programa anual de mantenimiento preventivo, se estarán realizando trabajos de limpieza profunda y desinfección en los tanques de almacenamiento de agua potable. Estas labores incluyen la remoción de sedimentos acumulados, lavado interno de superficies y aplicación de productos autorizados para la desinfección, con el objetivo de asegurar que el agua distribuida a la comunidad cumpla con los más altos estándares de calidad y seguridad sanitaria.",
     "date": "5 de abril de 2026",
@@ -48,7 +45,6 @@
     "variant": "news"
   },
   {
-    "id": "news-e0a6f5c4",
     "title": "Reparación de tubería en comunidad central",
     "description": "Actualmente nuestro equipo técnico se encuentra realizando trabajos de sustitución de tramos de tubería que presentaban desgaste y daños estructurales en la comunidad central. Esta intervención busca mejorar la presión del servicio, reducir pérdidas por fugas y optimizar la distribución del agua en los hogares cercanos. Estas mejoras forman parte del plan de modernización de la infraestructura hidráulica de la comunidad.",
     "date": "2 de abril de 2026",
@@ -64,7 +60,6 @@
     "variant": "news"
   },
   {
-    "id": "news-f1b7a6d5",
     "title": "Resultados recientes de análisis de calidad",
     "description": "Nos complace informar que los resultados más recientes de los análisis físico-químicos y microbiológicos realizados al agua potable confirman que esta cumple con los estándares de potabilidad establecidos por las autoridades competentes. Las muestras fueron tomadas en distintos puntos de la red para asegurar una evaluación integral de la calidad del servicio brindado a la comunidad.",
     "date": "30 de marzo de 2026",
@@ -80,7 +75,6 @@
     "variant": "news"
   },
   {
-    "id": "news-a2c8b7e6",
     "title": "Importancia de la cloración del agua",
     "description": "La cloración del agua es uno de los procesos más importantes dentro del tratamiento y distribución del recurso hídrico. Este procedimiento permite eliminar bacterias, virus y otros microorganismos potencialmente dañinos, garantizando que el agua llegue de forma segura a cada hogar. Mantener niveles adecuados de cloro residual en la red es fundamental para proteger la salud pública y prevenir enfermedades de origen hídrico.",
     "date": "28 de marzo de 2026",
@@ -96,7 +90,6 @@
     "variant": "news"
   },
   {
-    "id": "news-b3d9c8f7",
     "title": "Nuevas opciones de pago disponibles",
     "description": "Con el objetivo de facilitar el proceso de pago a nuestros asociados, hemos habilitado nuevas opciones como SINPE Móvil y transferencias bancarias. Estas modalidades permiten realizar el pago del recibo de manera rápida, segura y sin necesidad de desplazarse físicamente a nuestras oficinas, brindando mayor comodidad y flexibilidad a la comunidad.",
     "date": "25 de marzo de 2026",
@@ -112,7 +105,6 @@
     "variant": "news"
   },
   {
-    "id": "news-c4e0d9a8",
     "title": "Recordatorio de fechas de pago",
     "description": "Recordamos a todos nuestros usuarios la importancia de realizar el pago del servicio antes de la fecha límite indicada en su recibo mensual. Cumplir con el pago oportuno ayuda a evitar recargos por mora y contribuye al sostenimiento de la operación, mantenimiento y mejora continua de la red de agua potable de la comunidad.",
     "date": "22 de marzo de 2026",
@@ -128,7 +120,6 @@
     "variant": "news"
   },
   {
-    "id": "news-d5f1e0b9",
     "title": "Convocatoria a asamblea general",
     "description": "Se extiende una cordial invitación a todos los asociados y vecinos de la comunidad para participar en la próxima asamblea general, en la cual se abordarán temas relevantes relacionados con la administración del servicio, proyectos futuros, estados financieros y mejoras en la infraestructura. Su participación es fundamental para la toma de decisiones y el fortalecimiento de la gestión comunitaria.",
     "date": "20 de marzo de 2026",
@@ -144,7 +135,6 @@
     "variant": "news"
   },
   {
-    "id": "news-e6a2f1c0",
     "title": "Jornada de voluntariado comunitario",
     "description": "Agradecemos profundamente la participación de los vecinos en la reciente jornada de voluntariado comunitario, en la cual se realizaron labores de limpieza, recolección de residuos y mantenimiento en zonas cercanas a las nacientes de agua. Estas acciones fortalecen el sentido de comunidad y contribuyen directamente a la protección de nuestras fuentes hídricas.",
     "date": "18 de marzo de 2026",
@@ -160,7 +150,6 @@
     "variant": "news"
   },
   {
-    "id": "news-f7b3a2d1",
     "title": "Campaña de ahorro de agua en verano",
     "description": "Durante la temporada seca, el uso responsable del agua se vuelve especialmente importante. Por ello, estamos impulsando una campaña de concientización para promover prácticas de ahorro como reducir tiempos de ducha, evitar el lavado innecesario de vehículos y reutilizar agua cuando sea posible. Estas acciones ayudan a prevenir desabastecimientos y aseguran la disponibilidad del recurso para toda la comunidad.",
     "date": "15 de marzo de 2026",
@@ -176,7 +165,6 @@
     "variant": "news"
   },
   {
-    "id": "news-a8c4b3e2",
     "title": "Reforestación en zona de protección",
     "description": "Como parte de nuestro compromiso con la sostenibilidad ambiental y la protección de las fuentes de agua, se llevó a cabo una jornada de reforestación en áreas estratégicas de la zona de protección. La siembra de árboles contribuye a la conservación del suelo, mejora la infiltración de agua y fortalece el ecosistema local, beneficiando tanto al ambiente como al abastecimiento futuro del recurso hídrico.",
     "date": "12 de marzo de 2026",
@@ -192,7 +180,6 @@
     "variant": "news"
   },
   {
-    "id": "gest-1a2b3c4d",
     "title": "Consulta de Recibos",
     "description": "Consulta tus recibos de pago y estado de cuenta.",
     "date": "",
@@ -208,7 +195,6 @@
     "variant": "service"
   },
   {
-    "id": "gest-2b3c4d5e",
     "title": "Pago de Servicios",
     "description": "Realiza el pago de tu recibo de agua de forma rápida y segura.",
     "date": "",
@@ -228,7 +214,6 @@
     "variant": "service"
   },
   {
-    "id": "gest-3c4d5e6f",
     "title": "Solicitud de Nuevo Servicio",
     "description": "Solicita una nueva conexión de agua potable para tu domicilio o negocio.",
     "date": "",
@@ -248,7 +233,6 @@
     "variant": "service"
   },
   {
-    "id": "gest-4d5e6f7g",
     "title": "Solicitud de Facturas",
     "description": "Obtén copias de tus facturas anteriores o solicita facturas a domicilio.",
     "date": "",
@@ -268,7 +252,6 @@
     "variant": "service"
   },
   {
-    "id": "gov-9z8y7x6w",
     "title": "Junta Directiva",
     "description": "Conoce a los miembros de nuestra junta directiva y su compromiso con la comunidad.",
     "date": "",
@@ -289,7 +272,6 @@
     "variant": "governance"
   },
   {
-    "id": "gov-0x9y8z7a",
     "title": "Reglamentos",
     "description": "Consulta nuestros reglamentos internos y normativas que rigen el funcionamiento de la ASADA.",
     "date": "",
@@ -310,7 +292,6 @@
     "variant": "governance"
   },
   {
-    "id": "gov-1a0x9y8b",
     "title": "Informes Financieros",
     "description": "Accede a nuestros informes financieros y transparencia en el uso de recursos.",
     "date": "",
@@ -331,7 +312,6 @@
     "variant": "governance"
   },
   {
-    "id": "gov-2b1a0x9c",
     "title": "Actas de Asambleas",
     "description": "Consulta las actas de nuestras asambleas generales y reuniones importantes.",
     "date": "",
@@ -352,7 +332,6 @@
     "variant": "governance"
   },
   {
-    "id": "contact-location-0a1b2c3d",
     "title": "Ubicación",
     "description": "Visítanos en nuestra ubicación en Suerre, Jiménez, Pococí, Limón",
     "date": "",
@@ -368,7 +347,6 @@
     "variant": "contact"
   },
   {
-    "id": "contact-phone-1a2b3c4d",
     "title": "2763 6703",
     "description": "Llámanos para cualquier consulta o emergencia.",
     "date": "",
@@ -384,7 +362,6 @@
     "variant": "contact"
   },
   {
-    "id": "contact-email-2b3c4d5e",
     "title": "info@acueductosuerre.com",
     "description": "Envíanos un correo electrónico para mayor información.",
     "date": "",

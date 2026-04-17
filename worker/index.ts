@@ -1,0 +1,742 @@
+interface Env {
+  asada_suerre_db: D1Database;
+}
+
+// Helper function to parse JSON body
+async function parseBody(request: Request): Promise<any> {
+  try {
+    return await request.json();
+  } catch {
+    return null;
+  }
+}
+
+// Helper function to send JSON response
+function jsonResponse(data: any, status: number = 200): Response {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+  });
+}
+
+// Helper function to send error response
+function errorResponse(message: string, status: number = 400): Response {
+  return jsonResponse({ error: message }, status);
+}
+
+// Helper function to map joined card results with authors and items
+function mapCardWithRelations(rows: any[]): any[] {
+  const cardMap = new Map<number, any>();
+
+  for (const row of rows) {
+    const cardId = row.card_id;
+    
+    if (!cardMap.has(cardId)) {
+      cardMap.set(cardId, {
+        id: cardId,
+        title: row.title,
+        description: row.description,
+        date: row.date,
+        image: row.image,
+        subtitle: row.subtitle,
+        tag: row.tag,
+        badge: row.badge,
+        icon: row.icon,
+        url: row.url,
+        google_maps_url: row.google_maps_url,
+        variant: row.variant,
+        authors: [],
+        items: [],
+      });
+    }
+
+    const card = cardMap.get(cardId);
+
+    // Add author if exists
+    if (row.author_id) {
+      const existingAuthor = card.authors.find((a: any) => a.id === row.author_id);
+      if (!existingAuthor) {
+        card.authors.push({
+          id: row.author_id,
+          name: row.author_name,
+          avatar: row.author_avatar,
+        });
+      }
+    }
+
+    // Add item if exists
+    if (row.item_id && row.item_text) {
+      const existingItem = card.items.find((i: any) => i.id === row.item_id);
+      if (!existingItem) {
+        card.items.push({
+          id: row.item_id,
+          item: row.item_text,
+        });
+      }
+    }
+  }
+
+  return Array.from(cardMap.values());
+}
+
+// ==================== CARDS ENDPOINTS ====================
+
+// GET /cards?variant=news
+async function getCards(request: Request, env: Env): Promise<Response> {
+  const url = new URL(request.url);
+  const variant = url.searchParams.get('variant');
+  const id = url.searchParams.get('id');
+
+  // Get single card with relations
+  if (id) {
+    const card = await env.asada_suerre_db.prepare(`
+      SELECT 
+        c.id as card_id, c.title, c.description, c.date, c.image, c.subtitle, c.tag, c.badge,
+        c.icon, c.url, c.google_maps_url as google_maps_url, c.variant,
+        ca.id as author_id, ca.name as author_name, ca.avatar as author_avatar,
+        ci.id as item_id, ci.item as item_text
+      FROM cards c
+      LEFT JOIN card_authors ca ON c.id = ca.card_id
+      LEFT JOIN card_items ci ON c.id = ci.card_id
+      WHERE c.id = ?
+    `).bind(id).all();
+
+    if (!card.results || card.results.length === 0) {
+      return errorResponse('Card not found', 404);
+    }
+
+    const mapped = mapCardWithRelations(card.results);
+    return jsonResponse(mapped[0]);
+  }
+
+  // Get cards with optional variant filter
+  let query = `
+    SELECT 
+      c.id as card_id, c.title, c.description, c.date, c.image, c.subtitle, c.tag, c.badge,
+      c.icon, c.url, c.google_maps_url as google_maps_url, c.variant,
+      ca.id as author_id, ca.name as author_name, ca.avatar as author_avatar,
+      ci.id as item_id, ci.item as item_text
+    FROM cards c
+    LEFT JOIN card_authors ca ON c.id = ca.card_id
+    LEFT JOIN card_items ci ON c.id = ci.card_id
+  `;
+
+  const params: any[] = [];
+
+  if (variant) {
+    query += ' WHERE c.variant = ?';
+    params.push(variant);
+  }
+
+  query += ' ORDER BY c.id DESC';
+
+  const stmt = env.asada_suerre_db.prepare(query);
+  const result = params.length > 0 ? await stmt.bind(...params).all() : await stmt.all();
+
+  if (!result.results) {
+    return jsonResponse([]);
+  }
+
+  const mapped = mapCardWithRelations(result.results);
+  return jsonResponse(mapped);
+}
+
+// POST /cards
+async function createCard(request: Request, env: Env): Promise<Response> {
+  const body = await parseBody(request);
+
+  if (!body || !body.title || !body.description || !body.variant) {
+    return errorResponse('Missing required fields: title, description, variant');
+  }
+
+  try {
+    // Insert card
+    const cardResult = await env.asada_suerre_db.prepare(`
+      INSERT INTO cards (title, description, date, image, subtitle, tag, badge, icon, url, google_maps_url, variant)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).bind(
+      body.title,
+      body.description,
+      body.date || null,
+      body.image || null,
+      body.subtitle || null,
+      body.tag || null,
+      body.badge || null,
+      body.icon || null,
+      body.url || null,
+      body.googleMapsUrl || null,
+      body.variant
+    ).run();
+
+    const cardId = cardResult.meta.last_row_id;
+
+    // Insert authors if provided
+    if (body.authors && Array.isArray(body.authors)) {
+      for (const author of body.authors) {
+        await env.asada_suerre_db.prepare(
+          'INSERT INTO card_authors (card_id, name, avatar) VALUES (?, ?, ?)'
+        ).bind(cardId, author.name, author.avatar || null).run();
+      }
+    }
+
+    // Insert items if provided
+    if (body.items && Array.isArray(body.items)) {
+      for (const item of body.items) {
+        await env.asada_suerre_db.prepare(
+          'INSERT INTO card_items (card_id, item) VALUES (?, ?)'
+        ).bind(cardId, item).run();
+      }
+    }
+
+    // Fetch and return the created card with relations
+    return getCards(new Request(`http://localhost?id=${cardId}`), env);
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// PUT /cards/:id
+async function updateCard(request: Request, env: Env, id: string): Promise<Response> {
+  const body = await parseBody(request);
+
+  if (!body) {
+    return errorResponse('Missing request body');
+  }
+
+  try {
+    // Update card
+    const updateFields: string[] = [];
+    const params: any[] = [];
+
+    if (body.title !== undefined) {
+      updateFields.push('title = ?');
+      params.push(body.title);
+    }
+    if (body.description !== undefined) {
+      updateFields.push('description = ?');
+      params.push(body.description);
+    }
+    if (body.date !== undefined) {
+      updateFields.push('date = ?');
+      params.push(body.date);
+    }
+    if (body.image !== undefined) {
+      updateFields.push('image = ?');
+      params.push(body.image);
+    }
+    if (body.subtitle !== undefined) {
+      updateFields.push('subtitle = ?');
+      params.push(body.subtitle);
+    }
+    if (body.tag !== undefined) {
+      updateFields.push('tag = ?');
+      params.push(body.tag);
+    }
+    if (body.badge !== undefined) {
+      updateFields.push('badge = ?');
+      params.push(body.badge);
+    }
+    if (body.icon !== undefined) {
+      updateFields.push('icon = ?');
+      params.push(body.icon);
+    }
+    if (body.url !== undefined) {
+      updateFields.push('url = ?');
+      params.push(body.url);
+    }
+    if (body.googleMapsUrl !== undefined) {
+      updateFields.push('google_maps_url = ?');
+      params.push(body.googleMapsUrl);
+    }
+    if (body.variant !== undefined) {
+      updateFields.push('variant = ?');
+      params.push(body.variant);
+    }
+
+    if (updateFields.length === 0) {
+      return errorResponse('No fields to update');
+    }
+
+    params.push(id);
+    await env.asada_suerre_db.prepare(`UPDATE cards SET ${updateFields.join(', ')} WHERE id = ?`)
+      .bind(...params)
+      .run();
+
+    // Replace authors if provided
+    if (body.authors !== undefined) {
+      await env.asada_suerre_db.prepare('DELETE FROM card_authors WHERE card_id = ?').bind(id).run();
+      
+      if (Array.isArray(body.authors)) {
+        for (const author of body.authors) {
+          await env.asada_suerre_db.prepare(
+            'INSERT INTO card_authors (card_id, name, avatar) VALUES (?, ?, ?)'
+          ).bind(id, author.name, author.avatar || null).run();
+        }
+      }
+    }
+
+    // Replace items if provided
+    if (body.items !== undefined) {
+      await env.asada_suerre_db.prepare('DELETE FROM card_items WHERE card_id = ?').bind(id).run();
+      
+      if (Array.isArray(body.items)) {
+        for (const item of body.items) {
+          await env.asada_suerre_db.prepare(
+            'INSERT INTO card_items (card_id, item) VALUES (?, ?)'
+          ).bind(id, item).run();
+        }
+      }
+    }
+
+    // Fetch and return the updated card with relations
+    return getCards(new Request(`http://localhost?id=${id}`), env);
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// DELETE /cards/:id
+async function deleteCard(request: Request, env: Env, id: string): Promise<Response> {
+  try {
+    const result = await env.asada_suerre_db.prepare('DELETE FROM cards WHERE id = ?').bind(id).run();
+
+    if (result.meta.changes === 0) {
+      return errorResponse('Card not found', 404);
+    }
+
+    return jsonResponse({ success: true, message: 'Card deleted' });
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// ==================== CONTACTS ENDPOINTS ====================
+
+// GET /contacts
+async function getContacts(env: Env): Promise<Response> {
+  const result = await env.asada_suerre_db.prepare('SELECT * FROM contacts WHERE id = 1').first();
+
+  if (!result) {
+    return errorResponse('Contacts not found', 404);
+  }
+
+  return jsonResponse(result);
+}
+
+// PUT /contacts
+async function updateContacts(request: Request, env: Env): Promise<Response> {
+  const body = await parseBody(request);
+
+  if (!body) {
+    return errorResponse('Missing request body');
+  }
+
+  try {
+    await env.asada_suerre_db.prepare(`
+      INSERT OR REPLACE INTO contacts (id, whatsapp_phone_info, whatsapp_phone_support, facebook_url)
+      VALUES (1, ?, ?, ?)
+    `).bind(
+      body.whatsappPhoneInfo || null,
+      body.whatsappPhoneSupport || null,
+      body.facebookUrl || null
+    ).run();
+
+    return getContacts(env);
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// ==================== HOME SLIDES ENDPOINTS ====================
+
+// GET /home-slides
+async function getHomeSlides(env: Env): Promise<Response> {
+  const result = await env.asada_suerre_db.prepare('SELECT * FROM home_slides ORDER BY sort_order').all();
+
+  return jsonResponse(result.results || []);
+}
+
+// POST /home-slides
+async function createHomeSlide(request: Request, env: Env): Promise<Response> {
+  const body = await parseBody(request);
+
+  if (!body || !body.image || !body.title || !body.description) {
+    return errorResponse('Missing required fields: image, title, description');
+  }
+
+  try {
+    const result = await env.asada_suerre_db.prepare(`
+      INSERT INTO home_slides (image, title, subtitle, description, sort_order)
+      VALUES (?, ?, ?, ?, ?)
+    `).bind(
+      body.image,
+      body.title,
+      body.subtitle || null,
+      body.description,
+      body.sort_order || 0
+    ).run();
+
+    const id = result.meta.last_row_id;
+    const slide = await env.asada_suerre_db.prepare('SELECT * FROM home_slides WHERE id = ?').bind(id).first();
+
+    return jsonResponse(slide, 201);
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// PUT /home-slides/:id
+async function updateHomeSlide(request: Request, env: Env, id: string): Promise<Response> {
+  const body = await parseBody(request);
+
+  if (!body) {
+    return errorResponse('Missing request body');
+  }
+
+  try {
+    const updateFields: string[] = [];
+    const params: any[] = [];
+
+    if (body.image !== undefined) {
+      updateFields.push('image = ?');
+      params.push(body.image);
+    }
+    if (body.title !== undefined) {
+      updateFields.push('title = ?');
+      params.push(body.title);
+    }
+    if (body.subtitle !== undefined) {
+      updateFields.push('subtitle = ?');
+      params.push(body.subtitle);
+    }
+    if (body.description !== undefined) {
+      updateFields.push('description = ?');
+      params.push(body.description);
+    }
+    if (body.sort_order !== undefined) {
+      updateFields.push('sort_order = ?');
+      params.push(body.sort_order);
+    }
+
+    if (updateFields.length === 0) {
+      return errorResponse('No fields to update');
+    }
+
+    params.push(id);
+    await env.asada_suerre_db.prepare(`UPDATE home_slides SET ${updateFields.join(', ')} WHERE id = ?`)
+      .bind(...params)
+      .run();
+
+    const slide = await env.asada_suerre_db.prepare('SELECT * FROM home_slides WHERE id = ?').bind(id).first();
+
+    return jsonResponse(slide);
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// DELETE /home-slides/:id
+async function deleteHomeSlide(env: Env, id: string): Promise<Response> {
+  try {
+    const result = await env.asada_suerre_db.prepare('DELETE FROM home_slides WHERE id = ?').bind(id).run();
+
+    if (result.meta.changes === 0) {
+      return errorResponse('Home slide not found', 404);
+    }
+
+    return jsonResponse({ success: true, message: 'Home slide deleted' });
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// ==================== TIMELINE ENDPOINTS ====================
+
+// GET /timeline
+async function getTimeline(env: Env): Promise<Response> {
+  const result = await env.asada_suerre_db.prepare('SELECT * FROM timeline_items ORDER BY sort_order').all();
+
+  return jsonResponse(result.results || []);
+}
+
+// POST /timeline
+async function createTimelineItem(request: Request, env: Env): Promise<Response> {
+  const body = await parseBody(request);
+
+  if (!body || !body.year || !body.title || !body.description) {
+    return errorResponse('Missing required fields: year, title, description');
+  }
+
+  try {
+    const result = await env.asada_suerre_db.prepare(`
+      INSERT INTO timeline_items (year, title, description, icon, image, sort_order)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `).bind(
+      body.year,
+      body.title,
+      body.description,
+      body.icon || null,
+      body.image || null,
+      body.sort_order || 0
+    ).run();
+
+    const id = result.meta.last_row_id;
+    const item = await env.asada_suerre_db.prepare('SELECT * FROM timeline_items WHERE id = ?').bind(id).first();
+
+    return jsonResponse(item, 201);
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// PUT /timeline/:id
+async function updateTimelineItem(request: Request, env: Env, id: string): Promise<Response> {
+  const body = await parseBody(request);
+
+  if (!body) {
+    return errorResponse('Missing request body');
+  }
+
+  try {
+    const updateFields: string[] = [];
+    const params: any[] = [];
+
+    if (body.year !== undefined) {
+      updateFields.push('year = ?');
+      params.push(body.year);
+    }
+    if (body.title !== undefined) {
+      updateFields.push('title = ?');
+      params.push(body.title);
+    }
+    if (body.description !== undefined) {
+      updateFields.push('description = ?');
+      params.push(body.description);
+    }
+    if (body.icon !== undefined) {
+      updateFields.push('icon = ?');
+      params.push(body.icon);
+    }
+    if (body.image !== undefined) {
+      updateFields.push('image = ?');
+      params.push(body.image);
+    }
+    if (body.sort_order !== undefined) {
+      updateFields.push('sort_order = ?');
+      params.push(body.sort_order);
+    }
+
+    if (updateFields.length === 0) {
+      return errorResponse('No fields to update');
+    }
+
+    params.push(id);
+    await env.asada_suerre_db.prepare(`UPDATE timeline_items SET ${updateFields.join(', ')} WHERE id = ?`)
+      .bind(...params)
+      .run();
+
+    const item = await env.asada_suerre_db.prepare('SELECT * FROM timeline_items WHERE id = ?').bind(id).first();
+
+    return jsonResponse(item);
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// DELETE /timeline/:id
+async function deleteTimelineItem(env: Env, id: string): Promise<Response> {
+  try {
+    const result = await env.asada_suerre_db.prepare('DELETE FROM timeline_items WHERE id = ?').bind(id).run();
+
+    if (result.meta.changes === 0) {
+      return errorResponse('Timeline item not found', 404);
+    }
+
+    return jsonResponse({ success: true, message: 'Timeline item deleted' });
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// ==================== STATS ENDPOINTS ====================
+
+// GET /stats
+async function getStats(env: Env): Promise<Response> {
+  const result = await env.asada_suerre_db.prepare('SELECT * FROM stats ORDER BY sort_order').all();
+
+  return jsonResponse(result.results || []);
+}
+
+// PUT /stats (bulk replace)
+async function updateStats(request: Request, env: Env): Promise<Response> {
+  const body = await parseBody(request);
+
+  if (!body || !Array.isArray(body)) {
+    return errorResponse('Request body must be an array of stats');
+  }
+
+  try {
+    // Delete all existing stats
+    await env.asada_suerre_db.prepare('DELETE FROM stats').run();
+
+    // Insert new stats
+    for (const stat of body) {
+      if (!stat.number || !stat.label) {
+        continue;
+      }
+      await env.asada_suerre_db.prepare(
+        'INSERT INTO stats (number, label, sort_order) VALUES (?, ?, ?)'
+      ).bind(stat.number, stat.label, stat.sort_order || 0).run();
+    }
+
+    return getStats(env);
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// ==================== ABOUT CONTENT ENDPOINTS ====================
+
+// GET /about
+async function getAboutContent(env: Env): Promise<Response> {
+  const result = await env.asada_suerre_db.prepare('SELECT * FROM about_content').all();
+
+  return jsonResponse(result.results || []);
+}
+
+// GET /about/:type
+async function getAboutContentByType(env: Env, type: string): Promise<Response> {
+  const result = await env.asada_suerre_db.prepare('SELECT * FROM about_content WHERE content_type = ?')
+    .bind(type)
+    .first();
+
+  if (!result) {
+    return errorResponse('About content not found', 404);
+  }
+
+  return jsonResponse(result);
+}
+
+// PUT /about/:type (upsert)
+async function upsertAboutContent(request: Request, env: Env, type: string): Promise<Response> {
+  const body = await parseBody(request);
+
+  if (!body || !body.title || !body.content) {
+    return errorResponse('Missing required fields: title, content');
+  }
+
+  try {
+    await env.asada_suerre_db.prepare(`
+      INSERT INTO about_content (content_type, title, content)
+      VALUES (?, ?, ?)
+      ON CONFLICT(content_type) DO UPDATE SET
+        title = excluded.title,
+        content = excluded.content
+    `).bind(type, body.title, body.content).run();
+
+    return getAboutContentByType(env, type);
+  } catch (error: any) {
+    return errorResponse(error.message, 500);
+  }
+}
+
+// ==================== MAIN ROUTER ====================
+
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url);
+    const path = url.pathname;
+    const method = request.method;
+
+    // CORS preflight
+    if (method === 'OPTIONS') {
+      return new Response(null, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+      });
+    }
+
+    // ==================== CARDS ROUTES ====================
+    if (path === '/cards' && method === 'GET') {
+      return getCards(request, env);
+    }
+    if (path === '/cards' && method === 'POST') {
+      return createCard(request, env);
+    }
+    if (path.startsWith('/cards/') && method === 'PUT') {
+      const id = path.split('/')[2];
+      return updateCard(request, env, id);
+    }
+    if (path.startsWith('/cards/') && method === 'DELETE') {
+      const id = path.split('/')[2];
+      return deleteCard(request, env, id);
+    }
+
+    // ==================== CONTACTS ROUTES ====================
+    if (path === '/contacts' && method === 'GET') {
+      return getContacts(env);
+    }
+    if (path === '/contacts' && method === 'PUT') {
+      return updateContacts(request, env);
+    }
+
+    // ==================== HOME SLIDES ROUTES ====================
+    if (path === '/home-slides' && method === 'GET') {
+      return getHomeSlides(env);
+    }
+    if (path === '/home-slides' && method === 'POST') {
+      return createHomeSlide(request, env);
+    }
+    if (path.startsWith('/home-slides/') && method === 'PUT') {
+      const id = path.split('/')[2];
+      return updateHomeSlide(request, env, id);
+    }
+    if (path.startsWith('/home-slides/') && method === 'DELETE') {
+      const id = path.split('/')[2];
+      return deleteHomeSlide(env, id);
+    }
+
+    // ==================== TIMELINE ROUTES ====================
+    if (path === '/timeline' && method === 'GET') {
+      return getTimeline(env);
+    }
+    if (path === '/timeline' && method === 'POST') {
+      return createTimelineItem(request, env);
+    }
+    if (path.startsWith('/timeline/') && method === 'PUT') {
+      const id = path.split('/')[2];
+      return updateTimelineItem(request, env, id);
+    }
+    if (path.startsWith('/timeline/') && method === 'DELETE') {
+      const id = path.split('/')[2];
+      return deleteTimelineItem(env, id);
+    }
+
+    // ==================== STATS ROUTES ====================
+    if (path === '/stats' && method === 'GET') {
+      return getStats(env);
+    }
+    if (path === '/stats' && method === 'PUT') {
+      return updateStats(request, env);
+    }
+
+    // ==================== ABOUT CONTENT ROUTES ====================
+    if (path === '/about' && method === 'GET') {
+      return getAboutContent(env);
+    }
+    if (path.startsWith('/about/') && method === 'GET') {
+      const type = path.split('/')[2];
+      return getAboutContentByType(env, type);
+    }
+    if (path.startsWith('/about/') && method === 'PUT') {
+      const type = path.split('/')[2];
+      return upsertAboutContent(request, env, type);
+    }
+
+    // 404 for unknown routes
+    return errorResponse('Not found', 404);
+  },
+};
