@@ -21,15 +21,15 @@ describe('ContactsContainer', () => {
 
   test('renders with custom props', () => {
     render(
-      <ContactsContainer 
-        whatsappPhoneNumber="+1234567890"
-        email="custom@example.com"
+      <ContactsContainer
+        whatsappPhoneInfo="+1234567890"
+        whatsappPhoneSupport="+9876543210"
         facebookUrl="https://custom-facebook.com"
       />
     );
-    
+
     expect(screen.getByLabelText(/Contactar por WhatsApp/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Enviar correo electrónico/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/WhatsApp Averias/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Visitar Facebook/i)).toBeInTheDocument();
   });
 

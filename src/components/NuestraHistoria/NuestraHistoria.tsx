@@ -78,6 +78,32 @@ const useNumberAnimation = (end: string | number, duration: number = 1000) => {
   return formatNumber(count, end);
 };
 
+// StatCard component to properly use the hook
+function StatCard({ number, label }: { number: string | number; label: string }) {
+  const animatedNumber = useNumberAnimation(number);
+  return (
+    <Card className="stat-card" sx={{ textAlign: "center", py: 3 }}>
+      <CardContent>
+        <Typography
+          variant="h3"
+          component="div"
+          className="stat-number"
+          sx={{ fontWeight: "bold", color: "primary.main" }}
+        >
+          {animatedNumber}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          className="stat-label"
+        >
+          {label}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function NuestraHistoria() {
   return (
     <Container
@@ -91,32 +117,11 @@ export default function NuestraHistoria() {
     >
       {/* Statistics Section */}
       <Grid container spacing={3} sx={{ mb: 6 }}>
-        {statsData.map((stat, index) => {
-          const animatedNumber = useNumberAnimation(stat.number);
-          return (
-            <Grid key={index} size={{ xs: 6, md: 3 }}>
-              <Card className="stat-card" sx={{ textAlign: "center", py: 3 }}>
-                <CardContent>
-                  <Typography
-                    variant="h3"
-                    component="div"
-                    className="stat-number"
-                    sx={{ fontWeight: "bold", color: "primary.main" }}
-                  >
-                    {animatedNumber}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    className="stat-label"
-                  >
-                    {stat.label}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          );
-        })}
+        {statsData.map((stat, index) => (
+          <Grid key={index} size={{ xs: 6, md: 3 }}>
+            <StatCard number={stat.number} label={stat.label} />
+          </Grid>
+        ))}
       </Grid>
 
       {/* Timeline Section */}
@@ -134,7 +139,7 @@ export default function NuestraHistoria() {
               <TimelineSeparator>
                 <TimelineConnector />
                 <TimelineDot color="primary" className="timeline-dot">
-                  {item.icon && iconMap[item.icon] || <WaterDropIcon />}
+                  {(item.icon && iconMap[item.icon]) || <WaterDropIcon />}
                 </TimelineDot>
                 <TimelineConnector />
               </TimelineSeparator>
@@ -180,7 +185,7 @@ export default function NuestraHistoria() {
 
       {/* Mission and Vision */}
       <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card className="mission-card" sx={{ height: "100%" }}>
             <CardContent sx={{ p: 3 }}>
               <Typography
@@ -196,7 +201,7 @@ export default function NuestraHistoria() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card className="vision-card" sx={{ height: "100%" }}>
             <CardContent sx={{ p: 3 }}>
               <Typography
