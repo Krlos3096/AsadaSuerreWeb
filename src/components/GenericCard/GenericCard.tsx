@@ -5,13 +5,25 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Chip from '@mui/material/Chip';
+import GroupsIcon from '@mui/icons-material/Groups';
+import GavelIcon from '@mui/icons-material/Gavel';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import DescriptionIcon from '@mui/icons-material/Description';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import PaymentIcon from '@mui/icons-material/Payment';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { useDialog } from '../index';
 import './GenericCard.scss';
 
 // Types for different card variants
@@ -19,24 +31,21 @@ export interface GenericCardData {
   id: string;
   title: string;
   description?: string;
-  longDescription?: string;
+  date?: string;
   image?: string;
   subtitle?: string;
   tag?: string;
   badge?: string;
   authors?: { name: string; avatar: string }[];
-  metadata?: Record<string, any>;
-  actions?: Array<{
-    label: string;
-    onClick: () => void;
-    variant?: 'text' | 'outlined' | 'contained';
-    color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
-  }>;
+  icon?: string;
+  items?: string[];
+  url?: string;
+  googleMapsUrl?: string;
+  variant?: 'default' | 'news' | 'service' | 'governance' | 'contact';
 }
 
 export interface GenericCardProps {
   data: GenericCardData;
-  variant?: 'default' | 'news' | 'service' | 'governance' | 'contact';
   size?: 'small' | 'medium' | 'large';
   onClick?: () => void;
   onFocus?: (index: number) => void;
@@ -45,7 +54,6 @@ export interface GenericCardProps {
   focused?: boolean;
   className?: string;
   hideImage?: boolean;
-  hideActions?: boolean;
   customContent?: React.ReactNode;
 }
 
@@ -126,11 +134,28 @@ const Author: React.FC<{ authors: { name: string; avatar: string }[] }> = ({ aut
   );
 };
 
+// Icon mapping for string-based icon names
+const iconMap: { [key: string]: React.ReactNode } = {
+  Groups: <GroupsIcon />,
+  Gavel: <GavelIcon />,
+  AccountBalance: <AccountBalanceIcon />,
+  Description: <DescriptionIcon />,
+  Assignment: <AssignmentIcon />,
+  Payment: <PaymentIcon />,
+  Receipt: <ReceiptIcon />,
+  WaterDrop: <WaterDropIcon />,
+  Phone: <PhoneIcon />,
+  Email: <EmailIcon />,
+  LocationOn: <LocationOnIcon />
+};
+
 // Icon component for service/governance cards
-const CardIcon: React.FC<{ icon?: React.ReactNode; variant?: string }> = ({ icon, variant }) => {
+const CardIcon: React.FC<{ icon?: string; variant?: string }> = ({ icon, variant }) => {
   if (!icon || !['service', 'governance', 'contact'].includes(variant || '')) {
     return null;
   }
+
+  const iconNode = iconMap[icon];
 
   return (
     <Box
@@ -142,87 +167,13 @@ const CardIcon: React.FC<{ icon?: React.ReactNode; variant?: string }> = ({ icon
         fontSize: variant === 'contact' ? '48px' : '32px',
       }}
     >
-      {icon}
+      {iconNode}
     </Box>
-  );
-};
-
-// Action buttons component
-const CardActions: React.FC<{ 
-  actions?: GenericCardData['actions']; 
-  variant?: string;
-  hideActions?: boolean;
-}> = ({ actions, variant, hideActions }) => {
-  if (hideActions || !actions || actions.length === 0) {
-    return null;
-  }
-
-  return (
-    <Box sx={{ mt: 'auto', pt: 2, display: { xs: 'flex', md: variant === 'contact' ? 'none' : 'flex' }, gap: 1, flexDirection: 'column' }}>
-      {actions.map((action, index) => (
-        <Button
-          key={index}
-          variant="contained"
-          color="primary"
-          onClick={action.onClick}
-          fullWidth={variant === 'service' || variant === 'contact'}
-          size={variant === 'contact' ? 'medium' : 'small'}
-        >
-          {action.label}
-        </Button>
-      ))}
-    </Box>
-  );
-};
-
-// Requirements list component (for service cards)
-const RequirementsList: React.FC<{ 
-  requirements?: string[]; 
-  variant?: string;
-}> = ({ requirements, variant }) => {
-  if (!requirements || requirements.length === 0 || !['service', 'governance'].includes(variant || '')) {
-    return null;
-  }
-
-  return (
-    <Paper
-      variant="outlined"
-      sx={{ p: 2, mb: 2, backgroundColor: "grey.50" }}
-    >
-      <Typography
-        variant="subtitle2"
-        gutterBottom
-        sx={{ fontWeight: "bold" }}
-      >
-        { variant === 'service' ? 'Requisitos:' : '' }
-      </Typography>
-      <List dense>
-        {requirements.map((req, reqIndex) => (
-          <ListItem key={reqIndex} sx={{ px: 0, py: 0.5 }}>
-            <ListItemIcon sx={{ minWidth: 24 }}>
-              <Box
-                sx={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  backgroundColor: "primary.main",
-                }}
-              />
-            </ListItemIcon>
-            <ListItemText
-              primary={req}
-              primaryTypographyProps={{ variant: "body2" }}
-            />
-          </ListItem>
-        ))}
-      </List>
-    </Paper>
   );
 };
 
 const GenericCard: React.FC<GenericCardProps> = ({
   data,
-  variant = 'default',
   size = 'medium',
   onClick,
   onFocus,
@@ -231,11 +182,123 @@ const GenericCard: React.FC<GenericCardProps> = ({
   focused,
   className,
   hideImage = false,
-  hideActions = false,
   customContent,
 }) => {
+  const { openDialog } = useDialog();
+  const variant = data.variant || 'default';
+
   const handleFocus = () => {
     onFocus?.(parseInt(data.id));
+  };
+
+  const getDialogContent = () => {
+    switch (variant) {
+      case 'news':
+        return (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+              {data.tag && (
+                <Chip label={data.tag} size="small" variant="outlined" />
+              )}
+              {data.authors && data.authors.map((author, idx) => (
+                <Chip key={idx} label={author.name} size="small" variant="outlined" />
+              ))}
+            </Box>
+            <Box sx={{ typography: 'body1', lineHeight: 1.8 }}>
+              {data.description}
+            </Box>
+          </Box>
+        );
+      case 'service':
+      case 'governance':
+        return (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            {data.subtitle && (
+              <Typography variant="h6" color="text.secondary">
+                {data.subtitle}
+              </Typography>
+            )}
+            {data.description && (
+              <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
+                {data.description}
+              </Typography>
+            )}
+            {data.items && (
+              <Paper variant="outlined" sx={{ p: 2, backgroundColor: "grey.50" }}>
+                <List dense>
+                  {data.items.map((req: string, reqIndex: number) => (
+                    <ListItem key={reqIndex} sx={{ px: 0, py: 0.5 }}>
+                      <ListItemIcon sx={{ minWidth: 24 }}>
+                        <Box
+                          sx={{
+                            width: 6,
+                            height: 6,
+                            borderRadius: "50%",
+                            backgroundColor: "primary.main",
+                          }}
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary={req} primaryTypographyProps={{ variant: "body2" }} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Paper>
+            )}
+          </Box>
+        );
+      default:
+        return (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            {data.subtitle && (
+              <Typography variant="h6" color="text.secondary">
+                {data.subtitle}
+              </Typography>
+            )}
+            {data.description && (
+              <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
+                {data.description}
+              </Typography>
+            )}
+          </Box>
+        );
+    }
+  };
+
+  const handleCardClick = () => {
+    // If googleMapsUrl exists, do nothing on click
+    if (data.googleMapsUrl) {
+      return;
+    }
+
+    // If icon is Phone, trigger phone call
+    if (data.icon === 'Phone') {
+      window.open(`tel:+506${data.title.replace(/\s/g, '')}`, '_self');
+      return;
+    }
+
+    // If icon is Email, trigger email
+    if (data.icon === 'Email') {
+      window.open(`mailto:${data.title}`, '_self');
+      return;
+    }
+
+    if (onClick) {
+      onClick();
+      return;
+    }
+
+    if (data.url) {
+      window.open(data.url, '_blank');
+      return;
+    }
+
+    openDialog({
+      title: data.title,
+      image: data.image,
+      content: getDialogContent(),
+      maxWidth: 'lg',
+      fullWidth: true
+    });
   };
 
   const getImageHeight = () => {
@@ -250,7 +313,7 @@ const GenericCard: React.FC<GenericCardProps> = ({
     <StyledCard
       cardvariant={variant}
       className={`${className || ''} ${focused ? 'Mui-focused' : ''}`}
-      onClick={onClick}
+      onClick={handleCardClick}
       onFocus={handleFocus}
       onBlur={onBlur}
       tabIndex={tabIndex}
@@ -270,9 +333,32 @@ const GenericCard: React.FC<GenericCardProps> = ({
         />
       )}
 
+      {/* Google Maps */}
+      {data.googleMapsUrl && (
+        <Box
+          sx={{
+            borderBottom: "1px solid",
+            borderColor: "divider",
+            backgroundColor: "grey.50",
+          }}
+        >
+          <iframe
+            src={data.googleMapsUrl}
+            style={{
+              width: "100%",
+              height: "200px",
+              border: "none",
+            }}
+            title="Map"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </Box>
+      )}
+
       <StyledCardContent>
         {/* Icon for service/governance/contact variants */}
-        <CardIcon icon={data.metadata?.icon} variant={variant} />
+        <CardIcon icon={data.icon} variant={variant} />
 
         {/* Badge/Tag */}
         {(data.tag || data.badge) && (
@@ -299,7 +385,7 @@ const GenericCard: React.FC<GenericCardProps> = ({
         </Typography>
 
         {/* Description */}
-        {data.description && (
+        {variant !== 'news' && data.description && (
           <StyledTypography
             variant="body2"
             color="text.secondary"
@@ -309,17 +395,19 @@ const GenericCard: React.FC<GenericCardProps> = ({
           </StyledTypography>
         )}
 
+        {/* Date */}
+        {data.date && (
+          <StyledTypography
+            variant="body2"
+            color="text.secondary"
+            gutterBottom
+          >
+            {data.date}
+          </StyledTypography>
+        )}
+
         {/* Custom Content */}
         {customContent}
-
-        {/* Requirements List (for service/governance variants) */}
-        <RequirementsList 
-          requirements={data.metadata?.requirements} 
-          variant={variant} 
-        />
-
-        {/* Actions */}
-        <CardActions actions={data.actions} variant={variant} hideActions={hideActions} />
 
         {/* Authors (only for news variant) */}
         {variant === 'news' && data.authors && data.authors.length > 0 && (

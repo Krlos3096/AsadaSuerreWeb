@@ -1,0 +1,46 @@
+[
+  {
+    "id": "gest-1a2b3c4d",
+    "title": "Consulta de Recibos",
+    "description": "Consulta tus recibos de pago y estado de cuenta.",
+    "icon": "Assignment",
+    "url": "https://www.cisaweb.com/mclientes",
+    "variant": "service"
+  },
+  {
+    "id": "gest-2b3c4d5e",
+    "title": "Pago de Servicios",
+    "description": "Realiza el pago de tu recibo de agua de forma rápida y segura.",
+    "icon": "Payment",
+    "items": [
+      "Número de contrato",
+      "Monto a pagar",
+      "Método de pago preferido"
+    ],
+    "variant": "service"
+  },
+  {
+    "id": "gest-3c4d5e6f",
+    "title": "Solicitud de Nuevo Servicio",
+    "description": "Solicita una nueva conexión de agua potable para tu domicilio o negocio.",
+    "icon": "WaterDrop",
+    "items": [
+      "Copia de cédula de identidad",
+      "Prueba de propiedad o contrato de arrendamiento",
+      "Croquis de ubicación del predio"
+    ],
+    "variant": "service"
+  },
+  {
+    "id": "gest-4d5e6f7g",
+    "title": "Solicitud de Facturas",
+    "description": "Obtén copias de tus facturas anteriores o solicita facturas a domicilio.",
+    "icon": "Receipt",
+    "items": [
+      "Número de contrato",
+      "Período solicitado",
+      "Dirección de envío (si aplica)"
+    ],
+    "variant": "service"
+  }
+]

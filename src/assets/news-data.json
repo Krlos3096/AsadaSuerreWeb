@@ -1,98 +1,122 @@
 [
   {
+    "id": "news-a7f3b2d1",
     "img": "./news-images/IMG_3685.JPG",
     "tag": "Avisos",
     "title": "Corte programado de agua en sector norte",
-    "description": "Se informa a los vecinos del sector norte que habrá suspensión del servicio debido a trabajos en la red principal. Agradecemos su comprensión.",
-    "longDescription": "Informamos a todos los vecinos del sector norte que se estará realizando una suspensión temporal del servicio de agua potable debido a trabajos programados de mantenimiento y mejora en la red principal de distribución. Estas labores son necesarias para garantizar la continuidad y calidad del servicio a mediano y largo plazo, así como para prevenir averías futuras. Recomendamos tomar las previsiones necesarias almacenando agua para las actividades esenciales del hogar durante el periodo indicado. Agradecemos profundamente su comprensión y colaboración mientras nuestro equipo técnico realiza estas mejoras.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Informamos a todos los vecinos del sector norte que se estará realizando una suspensión temporal del servicio de agua potable debido a trabajos programados de mantenimiento y mejora en la red principal de distribución. Estas labores son necesarias para garantizar la continuidad y calidad del servicio a mediano y largo plazo, así como para prevenir averías futuras. Recomendamos tomar las previsiones necesarias almacenando agua para las actividades esenciales del hogar durante el periodo indicado. Agradecemos profundamente su comprensión y colaboración mientras nuestro equipo técnico realiza estas mejoras.",
+    "date": "10 de abril de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-c8e4d3a2",
     "img": "./news-images/IMG_3685.JPG",
     "tag": "Avisos",
     "title": "Restablecimiento del servicio tras avería",
-    "description": "El servicio de agua potable ha sido restablecido luego de la reparación de una fuga importante en la línea principal.",
-    "longDescription": "Les informamos que el servicio de agua potable ha sido restablecido satisfactoriamente luego de que nuestro equipo técnico completara la reparación de una fuga significativa detectada en la línea principal de abastecimiento. Durante la intervención se realizaron inspecciones adicionales para verificar la estabilidad de la red y prevenir incidentes similares. Agradecemos la paciencia y comprensión mostrada por la comunidad durante el tiempo que duró la afectación del servicio.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Les informamos que el servicio de agua potable ha sido restablecido satisfactoriamente luego de que nuestro equipo técnico completara la reparación de una fuga significativa detectada en la línea principal de abastecimiento. Durante la intervención se realizaron inspecciones adicionales para verificar la estabilidad de la red y prevenir incidentes similares. Agradecemos la paciencia y comprensión mostrada por la comunidad durante el tiempo que duró la afectación del servicio.",
+    "date": "8 de abril de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-d9f5e4b3",
     "img": "./news-images/IMG_3723.JPG",
     "tag": "Mantenimiento",
     "title": "Limpieza anual de tanques de almacenamiento",
-    "description": "Se estarán realizando labores de limpieza y desinfección en los tanques para garantizar la calidad del agua.",
-    "longDescription": "Como parte de nuestro programa anual de mantenimiento preventivo, se estarán realizando trabajos de limpieza profunda y desinfección en los tanques de almacenamiento de agua potable. Estas labores incluyen la remoción de sedimentos acumulados, lavado interno de superficies y aplicación de productos autorizados para la desinfección, con el objetivo de asegurar que el agua distribuida a la comunidad cumpla con los más altos estándares de calidad y seguridad sanitaria.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Como parte de nuestro programa anual de mantenimiento preventivo, se estarán realizando trabajos de limpieza profunda y desinfección en los tanques de almacenamiento de agua potable. Estas labores incluyen la remoción de sedimentos acumulados, lavado interno de superficies y aplicación de productos autorizados para la desinfección, con el objetivo de asegurar que el agua distribuida a la comunidad cumpla con los más altos estándares de calidad y seguridad sanitaria.",
+    "date": "5 de abril de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-e0a6f5c4",
     "img": "./news-images/IMG_3661.JPG",
     "tag": "Mantenimiento",
     "title": "Reparación de tubería en comunidad central",
-    "description": "Nuestro equipo técnico trabaja en la sustitución de tuberías dañadas para mejorar la presión del servicio.",
-    "longDescription": "Actualmente nuestro equipo técnico se encuentra realizando trabajos de sustitución de tramos de tubería que presentaban desgaste y daños estructurales en la comunidad central. Esta intervención busca mejorar la presión del servicio, reducir pérdidas por fugas y optimizar la distribución del agua en los hogares cercanos. Estas mejoras forman parte del plan de modernización de la infraestructura hidráulica de la comunidad.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Actualmente nuestro equipo técnico se encuentra realizando trabajos de sustitución de tramos de tubería que presentaban desgaste y daños estructurales en la comunidad central. Esta intervención busca mejorar la presión del servicio, reducir pérdidas por fugas y optimizar la distribución del agua en los hogares cercanos. Estas mejoras forman parte del plan de modernización de la infraestructura hidráulica de la comunidad.",
+    "date": "2 de abril de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-f1b7a6d5",
     "img": "./news-images/IMG_3680.JPG",
     "tag": "Calidad del Agua",
     "title": "Resultados recientes de análisis de calidad",
-    "description": "Los análisis realizados confirman que el agua cumple con los estándares de potabilidad establecidos.",
-    "longDescription": "Nos complace informar que los resultados más recientes de los análisis físico-químicos y microbiológicos realizados al agua potable confirman que esta cumple con los estándares de potabilidad establecidos por las autoridades competentes. Las muestras fueron tomadas en distintos puntos de la red para asegurar una evaluación integral de la calidad del servicio brindado a la comunidad.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Nos complace informar que los resultados más recientes de los análisis físico-químicos y microbiológicos realizados al agua potable confirman que esta cumple con los estándares de potabilidad establecidos por las autoridades competentes. Las muestras fueron tomadas en distintos puntos de la red para asegurar una evaluación integral de la calidad del servicio brindado a la comunidad.",
+    "date": "30 de marzo de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-a2c8b7e6",
     "img": "./news-images/IMG_3698.JPG",
     "tag": "Calidad del Agua",
     "title": "Importancia de la cloración del agua",
-    "description": "La cloración es un proceso esencial para eliminar bacterias y garantizar agua segura para el consumo.",
-    "longDescription": "La cloración del agua es uno de los procesos más importantes dentro del tratamiento y distribución del recurso hídrico. Este procedimiento permite eliminar bacterias, virus y otros microorganismos potencialmente dañinos, garantizando que el agua llegue de forma segura a cada hogar. Mantener niveles adecuados de cloro residual en la red es fundamental para proteger la salud pública y prevenir enfermedades de origen hídrico.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "La cloración del agua es uno de los procesos más importantes dentro del tratamiento y distribución del recurso hídrico. Este procedimiento permite eliminar bacterias, virus y otros microorganismos potencialmente dañinos, garantizando que el agua llegue de forma segura a cada hogar. Mantener niveles adecuados de cloro residual en la red es fundamental para proteger la salud pública y prevenir enfermedades de origen hídrico.",
+    "date": "28 de marzo de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-b3d9c8f7",
     "img": "./news-images/IMG_3658.JPG",
     "tag": "Facturación",
     "title": "Nuevas opciones de pago disponibles",
-    "description": "Ahora puedes pagar tu recibo mediante SINPE Móvil y transferencias bancarias de forma más rápida.",
-    "longDescription": "Con el objetivo de facilitar el proceso de pago a nuestros asociados, hemos habilitado nuevas opciones como SINPE Móvil y transferencias bancarias. Estas modalidades permiten realizar el pago del recibo de manera rápida, segura y sin necesidad de desplazarse físicamente a nuestras oficinas, brindando mayor comodidad y flexibilidad a la comunidad.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Con el objetivo de facilitar el proceso de pago a nuestros asociados, hemos habilitado nuevas opciones como SINPE Móvil y transferencias bancarias. Estas modalidades permiten realizar el pago del recibo de manera rápida, segura y sin necesidad de desplazarse físicamente a nuestras oficinas, brindando mayor comodidad y flexibilidad a la comunidad.",
+    "date": "25 de marzo de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-c4e0d9a8",
     "img": "./news-images/IMG_3658.JPG",
     "tag": "Facturación",
     "title": "Recordatorio de fechas de pago",
-    "description": "Evita recargos realizando tu pago antes de la fecha límite indicada en tu recibo mensual.",
-    "longDescription": "Recordamos a todos nuestros usuarios la importancia de realizar el pago del servicio antes de la fecha límite indicada en su recibo mensual. Cumplir con el pago oportuno ayuda a evitar recargos por mora y contribuye al sostenimiento de la operación, mantenimiento y mejora continua de la red de agua potable de la comunidad.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Recordamos a todos nuestros usuarios la importancia de realizar el pago del servicio antes de la fecha límite indicada en su recibo mensual. Cumplir con el pago oportuno ayuda a evitar recargos por mora y contribuye al sostenimiento de la operación, mantenimiento y mejora continua de la red de agua potable de la comunidad.",
+    "date": "22 de marzo de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-d5f1e0b9",
     "img": "./news-images/IMG_3657.JPG",
     "tag": "Comunidad",
     "title": "Convocatoria a asamblea general",
-    "description": "Se invita a todos los asociados a participar en la próxima asamblea para discutir temas importantes.",
-    "longDescription": "Se extiende una cordial invitación a todos los asociados y vecinos de la comunidad para participar en la próxima asamblea general, en la cual se abordarán temas relevantes relacionados con la administración del servicio, proyectos futuros, estados financieros y mejoras en la infraestructura. Su participación es fundamental para la toma de decisiones y el fortalecimiento de la gestión comunitaria.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Se extiende una cordial invitación a todos los asociados y vecinos de la comunidad para participar en la próxima asamblea general, en la cual se abordarán temas relevantes relacionados con la administración del servicio, proyectos futuros, estados financieros y mejoras en la infraestructura. Su participación es fundamental para la toma de decisiones y el fortalecimiento de la gestión comunitaria.",
+    "date": "20 de marzo de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-e6a2f1c0",
     "img": "./news-images/IMG_3660.JPG",
     "tag": "Comunidad",
     "title": "Jornada de voluntariado comunitario",
-    "description": "Vecinos participaron en la limpieza de zonas cercanas a nacientes de agua en la comunidad.",
-    "longDescription": "Agradecemos profundamente la participación de los vecinos en la reciente jornada de voluntariado comunitario, en la cual se realizaron labores de limpieza, recolección de residuos y mantenimiento en zonas cercanas a las nacientes de agua. Estas acciones fortalecen el sentido de comunidad y contribuyen directamente a la protección de nuestras fuentes hídricas.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Agradecemos profundamente la participación de los vecinos en la reciente jornada de voluntariado comunitario, en la cual se realizaron labores de limpieza, recolección de residuos y mantenimiento en zonas cercanas a las nacientes de agua. Estas acciones fortalecen el sentido de comunidad y contribuyen directamente a la protección de nuestras fuentes hídricas.",
+    "date": "18 de marzo de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-f7b3a2d1",
     "img": "./news-images/IMG_3689.JPG",
     "tag": "Ambiente",
     "title": "Campaña de ahorro de agua en verano",
-    "description": "Se promueve el uso responsable del agua durante la temporada seca para evitar desabastecimiento.",
-    "longDescription": "Durante la temporada seca, el uso responsable del agua se vuelve especialmente importante. Por ello, estamos impulsando una campaña de concientización para promover prácticas de ahorro como reducir tiempos de ducha, evitar el lavado innecesario de vehículos y reutilizar agua cuando sea posible. Estas acciones ayudan a prevenir desabastecimientos y aseguran la disponibilidad del recurso para toda la comunidad.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Durante la temporada seca, el uso responsable del agua se vuelve especialmente importante. Por ello, estamos impulsando una campaña de concientización para promover prácticas de ahorro como reducir tiempos de ducha, evitar el lavado innecesario de vehículos y reutilizar agua cuando sea posible. Estas acciones ayudan a prevenir desabastecimientos y aseguran la disponibilidad del recurso para toda la comunidad.",
+    "date": "15 de marzo de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   },
   {
+    "id": "news-a8c4b3e2",
     "img": "./news-images/IMG_3683.JPG",
     "tag": "Ambiente",
     "title": "Reforestación en zona de protección",
-    "description": "Se plantaron árboles en áreas clave para proteger las fuentes de agua y mejorar el ecosistema.",
-    "longDescription": "Como parte de nuestro compromiso con la sostenibilidad ambiental y la protección de las fuentes de agua, se llevó a cabo una jornada de reforestación en áreas estratégicas de la zona de protección. La siembra de árboles contribuye a la conservación del suelo, mejora la infiltración de agua y fortalece el ecosistema local, beneficiando tanto al ambiente como al abastecimiento futuro del recurso hídrico.",
-    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }]
+    "description": "Como parte de nuestro compromiso con la sostenibilidad ambiental y la protección de las fuentes de agua, se llevó a cabo una jornada de reforestación en áreas estratégicas de la zona de protección. La siembra de árboles contribuye a la conservación del suelo, mejora la infiltración de agua y fortalece el ecosistema local, beneficiando tanto al ambiente como al abastecimiento futuro del recurso hídrico.",
+    "date": "12 de marzo de 2026",
+    "authors": [{ "name": "Administración ASADA", "avatar": "/static/images/avatar/1.jpg" }],
+    "variant": "news"
   }
 ]
