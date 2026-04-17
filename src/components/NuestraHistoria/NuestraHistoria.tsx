@@ -17,11 +17,6 @@ import { DataService } from '../../services/dataService';
 import { iconMap } from '../GenericCard/GenericCard';
 import './NuestraHistoria.scss';
 
-const timelineData = DataService.getTimeItemsData();
-const statsData = DataService.getStatsData();
-const mission = DataService.getMission();
-const vision = DataService.getVision();
-
 // Hook for number animation
 const useNumberAnimation = (end: string | number, duration: number = 1000) => {
   const [count, setCount] = React.useState(0);
@@ -105,6 +100,38 @@ function StatCard({ number, label }: { number: string | number; label: string })
 }
 
 export default function NuestraHistoria() {
+  const [timelineData, setTimelineData] = React.useState<any[]>([]);
+  const [statsData, setStatsData] = React.useState<any[]>([]);
+  const [mission, setMission] = React.useState<{ title: string; content: string } | null>(null);
+  const [vision, setVision] = React.useState<{ title: string; content: string } | null>(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function loadData() {
+      try {
+        const [timeline, stats, missionData, visionData] = await Promise.all([
+          DataService.getTimeItemsData(),
+          DataService.getStatsData(),
+          DataService.getMission(),
+          DataService.getVision()
+        ]);
+        setTimelineData(timeline || []);
+        setStatsData(stats || []);
+        setMission(missionData || null);
+        setVision(visionData || null);
+      } catch (error) {
+        console.error('Failed to load data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  if (loading) {
+    return <Box sx={{ textAlign: 'center', py: 8 }}>Loading...</Box>;
+  }
+
   return (
     <Container
       maxWidth="lg"
@@ -193,10 +220,10 @@ export default function NuestraHistoria() {
                 gutterBottom
                 sx={{ color: "primary.main", textAlign: "center" }}
               >
-                {mission.title}
+                {mission?.title}
               </Typography>
               <Typography variant="body1" paragraph>
-                {mission.content}
+                {mission?.content}
               </Typography>
             </CardContent>
           </Card>
@@ -209,10 +236,10 @@ export default function NuestraHistoria() {
                 gutterBottom
                 sx={{ color: "primary.main", textAlign: "center" }}
               >
-                {vision.title}
+                {vision?.title}
               </Typography>
               <Typography variant="body1" paragraph>
-                {vision.content}
+                {vision?.content}
               </Typography>
             </CardContent>
           </Card>

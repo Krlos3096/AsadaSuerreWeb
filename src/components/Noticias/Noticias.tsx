@@ -23,13 +23,28 @@ export default function Noticias() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState('Todo');
   const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(null);
+  const [cardsData, setCardsData] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function loadData() {
+      try {
+        const data = await DataService.getCardsData();
+        setCardsData(data);
+      } catch (error) {
+        console.error('Failed to load cards:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
 
   const categories = React.useMemo(() => {
-    const cardsData = DataService.getCardsData();
     const newsItems = cardsData.filter((item: any) => item.variant === 'news');
-    const uniqueTags = Array.from(new Set(newsItems.map((item: any) => item.tag)));
+    const uniqueTags = Array.from(new Set(newsItems.map((item: any) => item.tag).filter(Boolean)));
     return ['Todo', ...uniqueTags];
-  }, []);
+  }, [cardsData]);
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
@@ -63,7 +78,6 @@ export default function Noticias() {
 
   // Filter for news variant and apply category/search filters
   const filteredNews = React.useMemo(() => {
-    const cardsData = DataService.getCardsData();
     let filtered = cardsData.filter((item: any) => item.variant === 'news');
     if (selectedCategory !== 'Todo') {
       filtered = filtered.filter((item: any) => item.tag === selectedCategory);
@@ -76,7 +90,11 @@ export default function Noticias() {
       );
     }
     return filtered;
-  }, [selectedCategory, searchQuery]);
+  }, [cardsData, selectedCategory, searchQuery]);
+
+  if (loading) {
+    return <Box sx={{ textAlign: 'center', py: 8 }}>Loading...</Box>;
+  }
 
   // Transform news data to GenericCard format
   const transformedNews: GenericCardData[] = filteredNews.map((news: any) => ({

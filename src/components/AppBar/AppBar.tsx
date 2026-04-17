@@ -40,6 +40,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 export default function AppBarComponent() {
   const [open, setOpen] = React.useState(false);
+  const [carouselImages, setCarouselImages] = React.useState<any[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -55,13 +56,23 @@ export default function AppBarComponent() {
     './news-images/IMG_3680.JPG': IMG_3680,
   };
 
-  // Transform carousel images from JSON
-  const carouselImages = DataService.getCarouselImages().map((item: any) => ({
-    image: imageMap[item.image] || item.image,
-    title: item.title,
-    subtitle: item.subtitle,
-    description: item.description
-  }));
+  React.useEffect(() => {
+    async function loadCarouselImages() {
+      try {
+        const images = await DataService.getCarouselImages();
+        const transformed = images.map((item: any) => ({
+          image: imageMap[item.image] || item.image,
+          title: item.title,
+          subtitle: item.subtitle,
+          description: item.description
+        }));
+        setCarouselImages(transformed);
+      } catch (error) {
+        console.error('Failed to load carousel images:', error);
+      }
+    }
+    loadCarouselImages();
+  }, []);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     if(!isCarouselCollapsed) {
